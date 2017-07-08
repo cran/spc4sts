@@ -1,0 +1,5 @@
+exportPattern("^[[:alpha:]]+")
+import(rpart)
+import(stats)
+importFrom("grDevices", "gray")
+importFrom("graphics", "image")
