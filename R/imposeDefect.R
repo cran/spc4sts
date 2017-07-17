@@ -1,4 +1,6 @@
-imposeDefect <- function(img, loc = NULL, a = 7, b = 10, eps=.05, phi1 = 0, phi2 = 0, sigma = .01) {
+imposeDefect <- function(img, loc = NULL, a = 4, b = 10, eps=.05, phi1 = 0, phi2 = 0, sigma = .01) {
+
+  if (!is.matrix(img)) stop("img must be a matrix!")
 
   if (is.null(loc)) {
     m <- nrow(img)
@@ -6,9 +8,7 @@ imposeDefect <- function(img, loc = NULL, a = 7, b = 10, eps=.05, phi1 = 0, phi2
     loc <- c(sample((a+1+4):(m-a-4),1),sample((b+1+4):(n-b-4),1))
   }
 
-  gscale <- FALSE
-  if (is.integer(img))  gscale <- TRUE
-  defect <- sarGen(phi1, phi2, sigma, 2*a+1, 2*b+1, defect = FALSE, greyscale = gscale)
+  defect <- sarGen(phi1, phi2, sigma, 2*a+1, 2*b+1)
 
   for (i in (loc[1] - a):(loc[1] + a)) {
     for (j in (loc[2] - b):(loc[2] + b)) {
@@ -19,10 +19,9 @@ imposeDefect <- function(img, loc = NULL, a = 7, b = 10, eps=.05, phi1 = 0, phi2
   }
 
   list(img = img,
-       defect.info = list(type = "superimposed",
-                          defect.center = loc,
-                          defect.shape = c(a, b, eps),
-                          defect.params = c(phi1, phi2, sigma)
+       defect.info = list(defect.center = c('row' = loc[1], 'col' = loc[2]),
+                          defect.shape = c('a' = a, 'b' = b, 'eps' = eps),
+                          defect.params = c('phi1' = phi1, 'phi2' = phi2, 'sigma' = sigma)
        )
   )
 

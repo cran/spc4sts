@@ -1,5 +1,7 @@
 diagnoseLD <- function(ls, dth, plot.it = TRUE) {
 
+  if (class(ls) != "localStat")
+    stop("ls must be an object returned by the localStat function!")
   bimg = ls$sms;
   bimg[which(ls$sms <= dth, arr.ind=TRUE)] <- 1
   bimg[which(ls$sms > dth, arr.ind=TRUE)] <- 0

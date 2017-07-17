@@ -1,53 +1,58 @@
-sms <- function(img, stat, ms.ws, Fr, gamma = (ms.ws + 1)%/%2) {
+sms <- function(img, stat = c("ad", "bp"), w, Fr, gamma = (w + 1)/2) {
 
-  if (ms.ws<=1) {
-    cat("Moving window size less than 3. Return NULL! \n")
-    invisible(NULL)
-  }
+  if (!is.matrix(img)) stop("img must be a matrix.")
+
+  stat <- match.arg(stat)
+
+  if (w < 3 || w %% 2 < 1)
+    stop("w < 3 or not an odd number. Return NULL! \n")
 
   d1 <- nrow(img)
   d2 <- ncol(img)
-  ms.ws2 <- ms.ws-1
-  ms <- matrix(0,d1-ms.ws2,d2-ms.ws2)
-  if (stat=="ad") {
-    P <- pexptailecdf(Fr,img)
-    for (i in 1:(d1-ms.ws2)) {
-      for (j in 1:(d2-ms.ws2)) {
-        ms[i,j] <- ad(img[i:(i+ms.ws2),j:(j+ms.ws2)],P[i:(i+ms.ws2),j:(j+ms.ws2)])
+  w2 <- w - 1
+  ms <- matrix(0, d1-w2, d2-w2)
+  if (stat == "ad") {
+    if (class(Fr) != "exptailecdf")
+      stop("Fr must be an object returned by the exptailecdf function!")
+    P <- pexptailecdf(Fr, img)
+    for (i in 1:(d1-w2)) {
+      for (j in 1:(d2-w2)) {
+        ms[i,j] <- ad(img[i:(i+w2),j:(j+w2)],P[i:(i+w2),j:(j+w2)])
       }
     }
-  } else if (stat=="bp") {
-    if (gamma <= 0) { # limiting case
+  } else if (stat == "bp") {
+    if (gamma < 0) stop("gamma must be a positive integer!")
+    if (gamma == 0) { # limiting case
       e2 <- img^2
-      center <- (ms.ws+1)/2
-      for (i in 1:(d1-ms.ws2)) {
-        for (j in 1:(d2-ms.ws2)) {
-          x <- e2[i:(i+ms.ws2),j:(j+ms.ws2)]
+      center <- (w+1)/2
+      for (i in 1:(d1-w2)) {
+        for (j in 1:(d2-w2)) {
+          x <- e2[i:(i+w2),j:(j+w2)]
           ms[i,j] <- x[center,center]*sum(x)
         }
       }
     } else {
       K <- kerMat(gamma)
       p2 <- gamma - 1
-      ms.ws3 <- ms.ws2/2
+      w3 <- w2/2
       # loops for pixels without the Kernel boundary problem
-      for (i in (1+p2):(d1-ms.ws2-p2)) {
-        for (j in (1+p2):(d2-ms.ws2-p2)) {
-          ms[i,j] <- bp2(img,i+ms.ws3,j+ms.ws3,ms.ws,K)
+      for (i in (1+p2):(d1-w2-p2)) {
+        for (j in (1+p2):(d2-w2-p2)) {
+          ms[i,j] <- bp2(img,i+w3,j+w3,w,K)
         }
       }
 
       # loops for (top/bottom) pixels with the Kernel boundary problem
-      for ( i in c( 1:p2,(d1-ms.ws2-p2+1):(d1-ms.ws2) ) ) {
-        for (j in 1:(d2-ms.ws2)) {
-          ms[i,j] <- bp(img,i+ms.ws3,j+ms.ws3,ms.ws,K)
+      for ( i in c( 1:p2,(d1-w2-p2+1):(d1-w2) ) ) {
+        for (j in 1:(d2-w2)) {
+          ms[i,j] <- bp(img,i+w3,j+w3,w,K)
         }
       }
 
       # loops for (left/right-sided) pixels with the Kernel boundary problem
-      for ( i in gamma:(d1-ms.ws2-p2) ) {
-        for (j in c( 1:p2,(d2-ms.ws2-p2+1):(d2-ms.ws2) ) ) {
-          ms[i,j] <- bp(img,i+ms.ws3,j+ms.ws3,ms.ws,K)
+      for ( i in gamma:(d1-w2-p2) ) {
+        for (j in c( 1:p2,(d2-w2-p2+1):(d2-w2) ) ) {
+          ms[i,j] <- bp(img,i+w3,j+w3,w,K)
         }
       }
 

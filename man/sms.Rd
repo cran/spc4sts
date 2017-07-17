@@ -7,23 +7,23 @@ Spatial Moving Statistic
 Computes the spatial moving statistics (SMS) for pixels in a given image.
 }
 \usage{
-sms(img, stat, ms.ws, Fr, gamma = (ms.ws + 1)\%/\%2)
+sms(img, stat = c("ad", "bp"), w, Fr, gamma = (w + 1)/2)
 }
 \arguments{
   \item{img}{
 the image to compute the SMS for.
 }
   \item{stat}{
-the statistic used in the SMS. Can be either "ad" or "bp".
+the statistic used in the SMS. Must be either \code{"ad"} (default) or \code{"bp"}.
 }
-  \item{ms.ws}{
-the moving window size. Must be an odd number.
+  \item{w}{
+the spatial moving window size. Must be an odd number >= 3.
 }
   \item{Fr}{
 the reference ecdf with exponential tail approximation (see \code{\link{exptailecdf}}). Only used when \code{stat = "ad"}.
 }
   \item{gamma}{
-the bandwidth parameter for \code{\link{kerMat}}. Only used when \code{stat = "bp"}. The default value is recommended.
+the bandwidth parameter for \code{\link{kerMat}}. It must be a positive integer and only used when \code{stat = "bp"}. The default value is recommended.
 }
 }
 \value{

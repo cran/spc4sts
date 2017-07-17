@@ -4,20 +4,20 @@
 Neighborhood Data Preparation
 }
 \description{
-Prepares a neighborhood data from a given image.
+Prepares a neighborhood data from a given image, using the left-to-right top-to-bottom raster scan order (see Bui and Apley 2017).
 }
 \usage{
-dataPrep(image, nb, vars = NULL)
+dataPrep(img, nb, vars = NULL)
 }
 \arguments{
-  \item{image}{
+  \item{img}{
      the given image in the matrix format.
 }
   \item{nb}{
-     the size of the neighborhood. It must be either a scalar or a vector of length 3.
+     the size of the neighborhood. It must be a positive vector of length 1 or 3.
 }
   \item{vars}{
-     names of all the variables that are to be included in the neighborhood data (e.g., vars=c("V2","V3")).
+     names of all the variables that are to be included in the neighborhood data (e.g., vars = c("V2", "V3")).
 }
 }
 \value{
@@ -30,17 +30,11 @@ Bui, A.T., and Apley., D.W. (2017) A Monitoring and Diagnostic Approach for Stoc
 \author{
 Anh Bui
 }
-\note{
-This function uses the left-to-right top-to-bottom raster scan order (see Bui and Apley 2017). Rotating the image by every 90 degrees could be used to quickly change to some other raster scan orders.
-}
 \seealso{
-\code{\link{surfacemodel}}
+\code{\link{surfacemodel}, \link{localStat}}
 }
 \examples{
 ## construct the neighborhod data from a simulated image
 img <- sarGen(m = 100, n = 100, border = 50)
-dat <- dataPrep(img,1)
-
-## to rotate an image by 90 degrees clockwise, use:
-img2 <- as.matrix(t(apply(img , 2, rev)))
+dat <- dataPrep(img, 1)
 }

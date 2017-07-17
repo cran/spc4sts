@@ -8,30 +8,30 @@ Control Limit and Diagnostic Threshold Construction
 Establish control limits and diagnostic thresholds from given Phase I in-control images. \code{climit} is used for the first time. \code{climit2} can recompute the control limits and diagnostic thresholds given the output of \code{climit}. See Warning.
 }
 \usage{
-climit(imgs, model, stat, w, grate = c(0.05, 0.0027), nD = seq(5, 100, length.out = 10))
-climit2(object, grate, nD)
+climit(imgs, model, stat = c("ad", "bp"), w, grate = c(0.05, 0.0027), nD = c(5, 100))
+climit2(cl, grate, nD)
 }
 \arguments{
   \item{imgs}{
-an array containing all Phase I in-control images, each of which is a matrix.
+a 3-dimensional array containing all Phase I in-control images.
 }
   \item{model}{
-the output of \code{surfacemodel}
+the returned object from \code{surfacemodel}
 }
   \item{stat}{
-the statistic used in the SMS. Can be either "ad" or "bp" (default).
+the statistic used in the SMS. Must be either \code{"ad"} (default) or \code{"bp"}.
 }
   \item{w}{
-the window size of the SMS. Must be an odd number.
+the window size of the SMS. Must be an odd number >= 3.
 }
   \item{grate}{
-the global false alarm rate of the control limit to be constructed.
+the global false alarm rate, which asserts the rate of in-control images that are falsely alarmed as out-of-control. This can be a vector, in which case several levels of the control limit are returned.
 }
   \item{nD}{
-the parameter to construct the diagnostic threshold. It is the average number of pixels in each diagnostic image that are beyond the control llmit.
+the parameter to construct the diagnostic threshold. It is the average number of pixels in each diagnostic image that are beyond the control limit.
 }
-  \item{object}{
-the output of \code{climit}.
+  \item{cl}{
+the returned object from \code{climit}.
 }
 }
 \value{
@@ -59,14 +59,14 @@ img <- sarGen(m = 100, n = 100, border = 50) # training image
 model <- surfacemodel(img,1)
 
 ## generate Phase I images
-imgs <- array(0, c(100,100,2))
+imgs <- array(0, c(100,100,1))
 for (j in 1:dim(imgs)[3]) imgs[,,j] <- sarGen(m = 100, n = 100, border = 50)
 
 ## establish control limits and diagnostic thresholds
 # construct control limits and diagnostic thresholds for the first time
-cl <- climit(imgs, model, "bp", 5, .05, 50)
+cl <- climit(imgs, model, stat = "ad", w = 5, grate = .05, nD = 50)
 # update new control limit and diagnostic threshold
-cl2 <- climit2(cl, .01, 5)
+cl2 <- climit2(cl, grate = .01, nD = 5)
 
 #
 # NOTE: The above example is just for quick illustration. To obtain a good

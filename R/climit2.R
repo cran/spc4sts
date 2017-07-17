@@ -1,9 +1,12 @@
-climit2 <- function(object, grate, nD) {
+climit2 <- function(cl, grate, nD) {
 
-  if (!missing(grate))   object$control.limit <- quantile(object$PIstats, 1-grate)
+  if (class(cl) != "climit")
+    stop("cl must be an object returned by the climit or climit2 functions!")
+  if (!missing(grate))
+    cl$control.limit <- quantile(cl$PIstats, 1-grate)
   if (!missing(nD)) {
-    nD <- nD*length(object$PIstats)
-    object$diagnostic.threshold <- (object$nDmaxSms[nD] + object$nDmaxSms[nD+1])/2
+    nD <- nD*length(cl$PIstats)
+    cl$diagnostic.threshold <- (cl$nDmaxSms[nD] + cl$nDmaxSms[nD+1])/2
   }
-  object
+  cl
 }

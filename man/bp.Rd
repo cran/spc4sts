@@ -8,8 +8,8 @@ Box-Pierce-Type Statistic
 Compute the Box-Pierce-type (BP) statistic for pixels in a given image. \code{bp2()} cannot be used for pixels with the boundary problem, but is more efficient than \code{bp()} for other pixels.
 }
 \usage{
-bp(img, i1, i2, w, K)
-bp2(img, i1, i2, w, K)
+bp(img, i1, i2, w, K = kerMat((w + 1)/2))
+bp2(img, i1, i2, w , K = kerMat((w + 1)/2))
 }
 \arguments{
   \item{img}{

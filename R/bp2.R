@@ -1,7 +1,7 @@
-bp2 <- function(img, i1, i2, w, K = kerMat((w + 1) %/% 2))
+bp2 <- function(img, i1, i2, w, K = kerMat((w + 1)/2))
 {
-  w3 <- (w - 1) %/% 2
-  p2 <- (nrow(K)-1)%/%2
+  w3 <- (w - 1)/2
+  p2 <- (nrow(K)-1)/2
   S <- vector(mode = "numeric", length = w^2)
   id <- 1
   for (j1 in (i1-w3):(i1+w3)) {

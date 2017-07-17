@@ -7,20 +7,23 @@ Monitoring Statistic for Local Defects on Stochastic Textured Surfaces
 Computes the spatial moving statistics (SMS), and then the monitoring Statistic for local defects on a given stochastic textured surface image.
 }
 \usage{
-localStat(img, model, stat = c("ad", "bp"), w)
+localStat(img, model, cl, stat = c("ad", "bp"), w)
 }
 \arguments{
   \item{img}{
-the given image
+the given image in the matrix format.
 }
   \item{model}{
-the model obtained from \code{surfacemodel}
+the returned object from \code{surfacemodel}
+}
+  \item{cl}{
+the returned object from \code{climit} or \code{climit2}.
 }
   \item{stat}{
-the statistic used in the SMS. Can be either "ad" or "bp" (default).
+the statistic used in the SMS. If \code{cl} is given, \code{stat = cl$stat}; otherwise, must be either \code{"ad"} (default) or \code{"bp"}.
 }
   \item{w}{
-the window size of the SMS. Must be an odd number.
+the window size of the SMS. If \code{cl} is given, \code{w = cl$w}; otherwise, it must be an odd number >= 3.
 }
 
 }
@@ -47,6 +50,6 @@ model <- surfacemodel(img,1)
 
 ## generate an image and compute its monitoring statistic
 img2 <- sarGen(m = 100, n = 100, border = 50)
-ls <- localStat(img2, model, "bp", 5)
+ls <- localStat(img2, model, stat = "ad", w = 5)
 ls$monitoringStat
 }
