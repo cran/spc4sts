@@ -14,14 +14,14 @@ pexptailecdf(Fx, y)
 the object of class \code{exptailecdf}, containing an ecdf with exponential tail approximation.
 }
   \item{y}{
-the given observations in scalar/vector/matrix format.
+the given observations in the scalar/vector/matrix format.
 }
 }
 \value{
 An object of the same type with \code{y} that stores the evaluations of the \code{exptailecdf} object at the given \code{y}.
 }
 \references{
-Bui, A.T., and Apley., D.W. (2017) A Monitoring and Diagnostic Approach for Stochastic Textured Surfaces", Technometrics (in press).
+Bui, A.T. and Apley., D.W. (2018a) "A Monitoring and Diagnostic Approach for Stochastic Textured Surfaces", Technometrics, 60, 1-13.
 }
 \author{
 Anh Bui

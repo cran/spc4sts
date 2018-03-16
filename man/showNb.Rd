@@ -4,7 +4,7 @@
 Show Neighborhood
 }
 \description{
-Shows the neighborhood corresponding to the left-to-right top-to-bottom raster scan order with additional information: variable names of the data frame returned by \code{dataPrep}, predictors used in the model returned by \code{surfacemodel}, or their percentage importance currently, extracted from the \code{rpart} object) in the model. This function is useful for choosing a good neighborhood size and understanding relationship between pixels (e.g., periodcity).
+Shows the neighborhood corresponding to the left-to-right then top-to-bottom raster scan order with additional information: variable names of the data frame returned by \code{dataPrep}, predictors used in the model returned by \code{surfacemodel}, or their percentage importance in the model (currently extracted from the \code{rpart} object). This function is useful for choosing a good neighborhood size and understanding relationship between pixels (e.g., periodicity).
 }
 \usage{
 showNb(model, what = c("neighborhood", "predictors", "importance"), plot.it = TRUE)
@@ -14,7 +14,7 @@ showNb(model, what = c("neighborhood", "predictors", "importance"), plot.it = TR
 either the object returned by \code{surfacemodel} or a positive vector of length 1 or 3 specifying the neighboorhood. If it is a vector, \code{what <- "neighborhood"}.
 }
   \item{what}{
-  what to show in the neighorhood. \code{"neighborhood"} shows variable names of the data frame returned by \code{dataPrep}, \code{"predictors"} shows predictors used in the model returned by \code{surfacemodel}, \code{"importance"} shows their percentage importance in the model.
+  what to show in the neighorhood. \code{"neighborhood"} shows variable names of the data frame returned by \code{dataPrep}, \code{"predictors"} shows predictors used in the model returned by \code{surfacemodel}, and \code{"importance"} shows their percentage importance in the model.
   }
   \item{plot.it}{
   if \code{TRUE}, plot the neighborhood.
@@ -24,7 +24,9 @@ either the object returned by \code{surfacemodel} or a positive vector of length
 A matrix that contains the information for the plot (using the \code{grid.table} function).
 }
 \references{
-Bui, A.T., and Apley., D.W. (2017) A Monitoring and Diagnostic Approach for Stochastic Textured Surfaces", Technometrics (in press).
+Bui, A.T. and Apley., D.W. (2018a) "A Monitoring and Diagnostic Approach for Stochastic Textured Surfaces", Technometrics, 60, 1-13.
+
+Bui, A.T. and Apley, D.W. (2018b) "Monitoring for changes in the nature of stochastic textured surfaces", Journal of Quality Technology, to appear.
 }
 \author{
 Anh Bui

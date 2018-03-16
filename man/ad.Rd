@@ -14,14 +14,14 @@ ad(r, P)
 the given vector/matrix of observations
 }
   \item{P}{
-the vector/matrix containing the respective values of a (reference) cumulative distribution function for \code{r}.
+the vector/matrix containing the values of a (reference) cumulative distribution function evaluated at the values in \code{r}.
 }
 }
 \value{
 The AD statistic.
 }
 \references{
-Bui, A.T., and Apley., D.W. (2017) A Monitoring and Diagnostic Approach for Stochastic Textured Surfaces", Technometrics (in press).
+Bui, A.T. and Apley., D.W. (2018a) "A Monitoring and Diagnostic Approach for Stochastic Textured Surfaces", Technometrics, 60, 1-13.
 }
 \author{
 Anh Bui

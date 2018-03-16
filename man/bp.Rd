@@ -5,7 +5,7 @@
 Box-Pierce-Type Statistic
 }
 \description{
-Compute the Box-Pierce-type (BP) statistic for pixels in a given image. \code{bp2()} cannot be used for pixels with the boundary problem, but is more efficient than \code{bp()} for other pixels.
+Compute a Box-Pierce-type (BP) statistic for pixels in a given image. \code{bp2()} cannot be used for pixels with the boundary problem, but is more efficient than \code{bp()} for other pixels.
 }
 \usage{
 bp(img, i1, i2, w, K = kerMat((w + 1)/2))
@@ -16,13 +16,13 @@ bp2(img, i1, i2, w , K = kerMat((w + 1)/2))
 the given image
 }
   \item{i1}{
-row index of the pixel to compute the BP statistic for.
+the row index of the pixel to compute the BP statistic for.
 }
   \item{i2}{
-column index of the pixel to compute the BP statistic for.
+the column index of the pixel to compute the BP statistic for.
 }
   \item{w}{
-the spatial moving window size.
+the dimension of the spatial (square) moving window. Must be an odd number >= 3.
 }
   \item{K}{
 the weighted matrix.
@@ -32,7 +32,7 @@ the weighted matrix.
 The BP statistic.
 }
 \references{
-Bui, A.T., and Apley., D.W. (2017) A Monitoring and Diagnostic Approach for Stochastic Textured Surfaces", Technometrics (in press).
+Bui, A.T. and Apley., D.W. (2018a) "A Monitoring and Diagnostic Approach for Stochastic Textured Surfaces", Technometrics, 60, 1-13.
 }
 \author{
 Anh Bui

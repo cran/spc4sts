@@ -17,26 +17,26 @@ the image to compute the SMS for.
 the statistic used in the SMS. Must be either \code{"ad"} (default) or \code{"bp"}.
 }
   \item{w}{
-the spatial moving window size. Must be an odd number >= 3.
+the dimension of the square moving window of the SMS. It must be an odd number >= 3.
 }
   \item{Fr}{
 the reference ecdf with exponential tail approximation (see \code{\link{exptailecdf}}). Only used when \code{stat = "ad"}.
 }
   \item{gamma}{
-the bandwidth parameter for \code{\link{kerMat}}. It must be a positive integer and only used when \code{stat = "bp"}. The default value is recommended.
+the bandwidth parameter for \code{\link{kerMat}}. It must be a positive integer and is only used when \code{stat = "bp"}. The default value is recommended.
 }
 }
 \value{
 A matrix containing the SMS values computed for the pixels in \code{img}.
 }
 \references{
-Bui, A.T., and Apley., D.W. (2017) A Monitoring and Diagnostic Approach for Stochastic Textured Surfaces", Technometrics (in press).
+Bui, A.T. and Apley., D.W. (2018a) "A Monitoring and Diagnostic Approach for Stochastic Textured Surfaces", Technometrics, 60, 1-13.
 }
 \author{
 Anh Bui
 }
 \seealso{
-\code{\link{ad}, \link{bp}, \link{localStat}}
+\code{\link{ad}, \link{bp}, \link{monitoringStat}}
 }
 \examples{
 img <- matrix(rnorm(100),10,10)

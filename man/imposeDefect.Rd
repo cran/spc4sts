@@ -1,7 +1,7 @@
 \name{imposeDefect}
 \alias{imposeDefect}
 \title{
-Superimpose Local Defects
+Superimpose A Local Defect
 }
 \description{
 Superimposes a local defect (a 2D stochastic AR(1) image from \code{sarGen}) on a given image.
@@ -44,7 +44,7 @@ A list of the following:
 \item{defect.info }{the information of the defects.}
 }
 \references{
-Bui, A.T., and Apley., D.W. (2017) A Monitoring and Diagnostic Approach for Stochastic Textured Surfaces", Technometrics (in press).
+Bui, A.T. and Apley., D.W. (2018a) "A Monitoring and Diagnostic Approach for Stochastic Textured Surfaces", Technometrics, 60, 1-13.
 }
 \author{
 Anh Bui

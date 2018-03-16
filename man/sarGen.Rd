@@ -1,9 +1,10 @@
 \name{sarGen}
 \alias{sarGen}
 \title{
-Stochastic Autoregressive Image Generator}
+Stochastic Autoregressive Image Generator
+}
 \description{
-Generates 2D stochastic AR(1) images with/without a local defect.
+Generates a 2D stochastic AR(1) image.
 }
 \usage{
 sarGen(phi1 = .6, phi2 = .35, sigma = .01, m = 250, n = 250, border = 200)
@@ -35,7 +36,9 @@ The pixel \code{y(i,j)} of the 2D AR(1) process satisfies: \code{y(i,j) = phi1*y
 The generated image in the matrix format.
 }
 \references{
-Bui, A.T., and Apley., D.W. (2017) A Monitoring and Diagnostic Approach for Stochastic Textured Surfaces", Technometrics (in press).
+Bui, A.T. and Apley., D.W. (2018a) "A Monitoring and Diagnostic Approach for Stochastic Textured Surfaces", Technometrics, 60, 1-13.
+
+Bui, A.T. and Apley, D.W. (2018b) "Monitoring for changes in the nature of stochastic textured surfaces", Journal of Quality Technology, to appear.
 }
 \author{
 Anh Bui

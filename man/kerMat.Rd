@@ -17,7 +17,7 @@ the bandwidth parameter
 A matrix containing all the positive kernel values
 }
 \references{
-Bui, A.T., and Apley., D.W. (2017), "A Monitoring and Diagnostic Approach for Stochastic Textured Surfaces", Technometrics, In press.
+Bui, A.T. and Apley., D.W. (2018a) "A Monitoring and Diagnostic Approach for Stochastic Textured Surfaces", Technometrics, 60, 1-13.
 }
 \author{
 Anh Bui

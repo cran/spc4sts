@@ -4,7 +4,7 @@
 Neighborhood Data Preparation
 }
 \description{
-Prepares a neighborhood data from a given image, using the left-to-right top-to-bottom raster scan order (see Bui and Apley 2017).
+Prepares a neighborhood data from a given image, using the left-to-right then top-to-bottom raster scan order (see Bui and Apley 2017a).
 }
 \usage{
 dataPrep(img, nb, vars = NULL)
@@ -14,27 +14,36 @@ dataPrep(img, nb, vars = NULL)
      the given image in the matrix format.
 }
   \item{nb}{
-     the size of the neighborhood. It must be a positive vector of length 1 or 3.
+     the size of the neighborhood. It must be a 1-length or 3-length vector of positive integer(s). If the former, it is the same with a 3-length vector with the same elements.
 }
   \item{vars}{
-     names of all the variables that are to be included in the neighborhood data (e.g., vars = c("V2", "V3")).
+     names of variables to be selected in the neighborhood data.
 }
 }
 \value{
 A dataframe with column names "V1", "V2", "V3", ...
 The first column "V1" contains the response pixel, whereas the other columns contain pixels in the neighborhood (with size \code{nb}) of the response pixel.
 }
+\note{
+Only rows without missing values (corresponding to pixels with full neighborhood) are returned.
+}
 \references{
-Bui, A.T., and Apley., D.W. (2017) A Monitoring and Diagnostic Approach for Stochastic Textured Surfaces", Technometrics (in press).
+Bui, A.T. and Apley., D.W. (2018a) "A Monitoring and Diagnostic Approach for Stochastic Textured Surfaces", Technometrics, 60, 1-13.
+
+Bui, A.T. and Apley, D.W. (2018b) "Monitoring for changes in the nature of stochastic textured surfaces", Journal of Quality Technology, to appear.
 }
 \author{
 Anh Bui
 }
 \seealso{
-\code{\link{surfacemodel}, \link{localStat}}
+\code{\link{surfacemodel}, \link{monitoringStat}}
 }
 \examples{
-## construct the neighborhod data from a simulated image
-img <- sarGen(m = 100, n = 100, border = 50)
-dat <- dataPrep(img, 1)
+## construct a neighborhood data for an unrealistically small mock image (7x9 pixels).
+mock.img <- matrix(sample(0:255,63), 7, 9)
+mock.img
+dataPrep(img = mock.img, nb = 2) # the same with nb = c(2, 2, 2)
+
+## select only columns "V2", "V5", and "V13" in the output
+dataPrep(img = mock.img, nb = 2, vars = c("V2", "V5", "V13"))
 }
