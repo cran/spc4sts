@@ -1,5 +1,6 @@
-climit <- function(imgs, fa.rate = c(.05,.0027), model, type, stat = c("ad", "bp"), w,
-                   nD = c(5, 100), xval = 1) {
+climit <- function(imgs, fa.rate = c(.05,.0027), model,
+                   type, stat = c("ad", "bp"), w, nD = c(5, 100))
+{
 
   if (!is.array(imgs)) stop("img must be a 3-dimensional array.")
   else if (length(dim(imgs)) != 3) stop("img must be a 3-dimensional array.")
@@ -26,7 +27,7 @@ climit <- function(imgs, fa.rate = c(.05,.0027), model, type, stat = c("ad", "bp
   PI.local.stats <- PI.global.stats <- vector("numeric", N)
   for (j in 1:N) {
     mStat <- monitoringStat(img = imgs[,,j], model = model, type = type,
-                            stat = stat, w = w, xval = xval)
+                            stat = stat, w = w)
     if (1 %in% type) {
       tmp <- sort(c(tmp, mStat$sms), decreasing=T)[1:(nD.max+1)]
       PI.local.stats[j] <- mStat$localStat
@@ -46,7 +47,7 @@ climit <- function(imgs, fa.rate = c(.05,.0027), model, type, stat = c("ad", "bp
   } else localStat <- NULL
 
   if (2 %in% type) {
-    globalStat <- list(PIstats = PI.global.stats, xval = xval)
+    globalStat <- list(PIstats = PI.global.stats)
     k1 <- mean(PI.global.stats)
     k2 <- mean((PI.global.stats - k1)^2)
     k3 <- mean((PI.global.stats-k1)^3)

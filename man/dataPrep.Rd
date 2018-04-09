@@ -7,7 +7,7 @@ Neighborhood Data Preparation
 Prepares a neighborhood data from a given image, using the left-to-right then top-to-bottom raster scan order (see Bui and Apley 2017a).
 }
 \usage{
-dataPrep(img, nb, vars = NULL)
+dataPrep(img, nb, vars = NULL, subsample = 1)
 }
 \arguments{
   \item{img}{
@@ -18,6 +18,9 @@ dataPrep(img, nb, vars = NULL)
 }
   \item{vars}{
      names of variables to be selected in the neighborhood data.
+}
+  \item{subsample}{
+the portion of data rows be returned. It takes values in (0, 1]. If \code{subsample = 1}, all data rows will be returned, and if \code{subsample = .5}, only roughly a half will be returned.
 }
 }
 \value{
@@ -46,4 +49,7 @@ dataPrep(img = mock.img, nb = 2) # the same with nb = c(2, 2, 2)
 
 ## select only columns "V2", "V5", and "V13" in the output
 dataPrep(img = mock.img, nb = 2, vars = c("V2", "V5", "V13"))
+
+## return only a half number of rows
+dataPrep(img = mock.img, nb = 2, subsample = .5)
 }

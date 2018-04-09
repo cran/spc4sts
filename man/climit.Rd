@@ -8,8 +8,7 @@ Control Limit and Diagnostic Threshold Construction
 Establish control limits (for local defects and/or global changes) and diagnostic thresholds (for local defects) from the given Phase I images. \code{climit} is used for the first time. \code{climit2} can update the control limits and diagnostic thresholds given the output of \code{climit}. See Warning.
 }
 \usage{
-climit(imgs, fa.rate = c(.05,.0027), model, type, stat = c("ad", "bp"), w,
-                   nD = c(5, 100), xval = 1)
+climit(imgs, fa.rate = c(.05,.0027), model, type, stat = c("ad", "bp"), w, nD = c(5, 100))
 climit2(cl, fa.rate, nD)
 }
 \arguments{
@@ -20,10 +19,10 @@ a 3-dimensional array containing all Phase I in-control images.
 the false alarm rate, which asserts the rate of in-control images that are falsely alarmed as out-of-control. This can be a vector, in which case several levels of the control limit are returned.
 }
   \item{model}{
-the object returned by \code{surfacemodel}
+the object returned by \code{surfacemodel}.
 }
   \item{type}{
-for local defects, \code{type = 1}; for global changes, \code{type = 2}; for both, \code{type = 1:2}
+for local defects, \code{type = 1}; for global changes, \code{type = 2}; for both, \code{type = 1:2}.
 }
   \item{stat}{
 for local defects only. The statistic used in the spatial moving statistics. Must be either \code{"ad"} (default) or \code{"bp"}.
@@ -33,9 +32,6 @@ for local defects only. The dimension of the spatial (square) moving window. Mus
 }
   \item{nD}{
 for local defects only. The parameter to construct the diagnostic threshold. It is the average number of highlighted pixels in the diagnostic image for an in-control image.
-}
-  \item{xval}{
-for global changes only. The number of folds in cross-validation. Recommended value: 1, i.e., do not use cross-validation to find the complexity parameters for the models reprenting Phase I images. In this case, the complexity parameter in the element \code{fit} of the argument \code{model} is used. This usually results in fast and quite accurate monitoring performance.
 }
   \item{cl}{
 the object returned by \code{climit} or \code{climit2}.
@@ -68,7 +64,7 @@ for (j in 1:dim(imgs)[3]) imgs[,,j] <- sarGen(phi1 = .6, phi2 = .35, m = 100, n 
 ## establish control limits and diagnostic thresholds
 # construct control limits (for both local defects and global changes)
 # and diagnostic thresholds (for local defects) for the first time
-cl <- climit(imgs, fa.rate = .05, model, type = 1:2, stat = "ad", w = 5, nD = 50, xval = 1)
+cl <- climit(imgs, fa.rate = .05, model, type = 1:2, stat = "ad", w = 5, nD = 50)
 # update new control limit and diagnostic threshold
 cl2 <- climit2(cl, fa.rate = .01, nD = 5)
 

@@ -1,6 +1,6 @@
 exportPattern("^[[:alpha:]]+")
 import(rpart)
-import(gridExtra)
 import(stats)
+importFrom("gridExtra","grid.table")
 importFrom("grDevices", "gray", "dev.new")
 importFrom("graphics", "image", "par")

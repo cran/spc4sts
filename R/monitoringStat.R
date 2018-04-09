@@ -1,4 +1,4 @@
-monitoringStat <- function(img, model, type, stat = c("ad", "bp"), w, xval = 1, cl = NULL, verbose = FALSE) {
+monitoringStat <- function(img, model, type, stat = c("ad", "bp"), w, cl = NULL, verbose = FALSE) {
 
   if (!is.matrix(img)) stop("img must be a matrix.")
   if (class(model) != "surfacemodel") stop("Wrong input for the model argument! Needs a surfacemodel object.")
@@ -16,10 +16,8 @@ monitoringStat <- function(img, model, type, stat = c("ad", "bp"), w, xval = 1, 
 
     if (2 %in% type) {
       control <- model$fit$control
-      if (xval <= 1) {
-        control$xval <- 1
-        control$cp = model$fit$cptable[which.min(model$fit$cptable[, "xerror"]), "CP"]
-      }
+      control$xval <- 0
+      control$cp <- model$complexity
     }
   } else {
     if (class(cl) != "climit")
@@ -33,20 +31,14 @@ monitoringStat <- function(img, model, type, stat = c("ad", "bp"), w, xval = 1, 
 
     if (2 %in% type) {
       control <- model$fit$control
-      if (cl$globalStat$xval <= 1) {
-        control$xval <- 1
-        control$cp = model$fit$cptable[which.min(model$fit$cptable[, "xerror"]), "CP"]
-      }
+      control$xval <- 0
+      control$cp <- model$complexity
     }
   }
 
-  img <- (img - mean(img))/sd(img)
+  if (model$standardize) img <- (img - mean(img))/sd(img)
 
-  if (model$trim.vars) {
-    vars <- names(model$fit$variable.importance)
-    dat <- dataPrep(img, model$nb, vars)
-  } else
-    dat <- dataPrep(img, model$nb)
+  dat <- dataPrep(img, model$nb)
 
   r0j <- dat[,1] - as.numeric(predict(model$fit, dat))
 
@@ -86,15 +78,9 @@ monitoringStat <- function(img, model, type, stat = c("ad", "bp"), w, xval = 1, 
   ## global change
   if (2 %in% type) {
     fit <- rpart(V1~., dat, method = "anova", control = control, y = TRUE)
-    if (xval > 1)
-      fit <- prune(fit, cp = fit$cptable[which.min(fit$cptable[, "xerror"]), "CP"])
+    gStat <- log(model$MSE/mean(residuals(fit)^2)) + mean(r0j^2)/model$MSE - 1
 
-    MSE0j <- mean(r0j^2)
-    MSEj <- mean(residuals(fit)^2)
-
-    gStat <- log(model$MSE/MSEj) + MSE0j/model$MSE - 1
-
-    if (!is.null(cl)) {
+    if (!is.null(cl) & verbose) {
       i <- 1
       cat("Global monitoring statistic = ", gStat, "\n")
       if (!is.na(cl$globalStat$control.limit.trans_chi2)) {
@@ -125,10 +111,7 @@ monitoringStat <- function(img, model, type, stat = c("ad", "bp"), w, xval = 1, 
     out$localStat = lStat
   }
 
-  if (2 %in% type) {
-    out$xval <- xval
-    out$globalStat <- gStat
-  }
+  if (2 %in% type) out$globalStat <- gStat
 
   class(out) <- "monitoringStat"
   out

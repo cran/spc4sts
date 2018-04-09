@@ -7,26 +7,33 @@ Statistical reprentations of stochastic textured surfaces using supervised learn
 Provides a statistical represenation for a given stochastic textured surface image via a supervised learning model (a regression tree in this version).
 }
 \usage{
-surfacemodel(img, nb, trim.vars = TRUE, control, keep.data = FALSE, verbose = FALSE)
+surfacemodel(img, nb, trim.vars = TRUE, cp = 1e-5, xval = 5,
+             standardize = TRUE, subsample = 1, verbose = FALSE)
 }
 \arguments{
   \item{img}{
 the given stochastic textured surface image in the matrix format.
 }
   \item{nb}{
-     the size of the neighborhood. It must be a 1-length or 3-length vector of positive integer(s). If the former, it is the same with a 3-length vector with the same elements.
+the size of the neighborhood. It must be a 1-length or 3-length vector of positive integer(s). If the former, it is the same with a 3-length vector with the same elements.
 }
 \item{trim.vars}{
 if \code{TRUE}, refit the model using only the variables that were used in the first fit.
 }
-  \item{control}{
-control for rpart fits (see \code{\link{rpart.control}}). The default is minsplit = 10, cp = 0.00001, xval = 10, and maxsurrogate = 0.
+  \item{cp}{
+the complexity parameter for rpart fits (see \code{\link{rpart.control}}).
 }
-  \item{keep.data}{
-if set to \code{TRUE}, keeps a copy of the neighborhood data in the output.
+  \item{xval}{
+the number of folds in cross-validation (see \code{\link{rpart.control}}). If \code{xval <= 1}, cross-validation will not be used.
+}
+  \item{standardize}{
+if \code{TRUE}, standardize the given image \code{img <- (img - mean(img))/sd(img)}. This reduces the effect of different lighting conditions when images are taken.
+}
+  \item{subsample}{
+the portion of pixels in the given image \code{img} to be used. It takes values in (0,1].  \code{subsample = .5} means that roughly a half number of pixels is used.
 }
   \item{verbose}{
-if set to \code{TRUE}, output some model fitting information.
+if \code{TRUE}, output some model fitting information.
 }
 }
 \value{
@@ -36,8 +43,10 @@ A \code{surfacemodel} object containing the following components:
 \item{nb }{the \code{nb} argument}
 \item{Fr }{the empirical cdf with exponential tail approximation of the model residuals}
 \item{MSE }{the mean squared residuals}
-\item{dat }{the neighborhood data constructed from \code{img}}
+\item{standardize }{the \code{standardize} argument}
 \item{R2cv }{the cross-validated R-squared of \code{fit}}
+\item{complexity }{the complexity value of the returned \code{fit}.}
+\item{vars }{the variables used in the formula when fitting the model}
 }
 \references{
 Bui, A.T. and Apley., D.W. (2018a) "A Monitoring and Diagnostic Approach for Stochastic Textured Surfaces", Technometrics, 60, 1-13.

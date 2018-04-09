@@ -1,4 +1,5 @@
-surfacemodel <- function(img, nb, trim.vars = TRUE, control, keep.data = FALSE, verbose = FALSE) {
+surfacemodel <- function(img, nb, trim.vars = TRUE, cp = 1e-5, xval = 5,
+                         standardize = TRUE, subsample = 1, verbose = FALSE) {
 
   if (!is.matrix(img)) stop("img must be a matrix!")
 
@@ -15,13 +16,11 @@ surfacemodel <- function(img, nb, trim.vars = TRUE, control, keep.data = FALSE, 
 
   if (length(nb)==1) nb <- rep(nb,3)
 
-  img <- (img - mean(img))/sd(img)
+  if (standardize)  img <- (img - mean(img))/sd(img)
 
-  dat <- dataPrep(img = img, nb = nb)
+  dat <- dataPrep(img = img, nb = nb, subsample = subsample)
 
-  if (missing(control))
-    control <- rpart.control(minsplit = 10, cp = 0.00001, xval = 10, maxsurrogate = 0)
-
+  control <- rpart.control(minsplit = 10, cp = cp, xval = xval, maxsurrogate = 0)
   fit <- rpart(V1~., dat, method = "anova", control = control, y = TRUE)
 
   xval <- control$xval
@@ -41,8 +40,7 @@ surfacemodel <- function(img, nb, trim.vars = TRUE, control, keep.data = FALSE, 
         cat("Refitting using only variables used in the first fit...")
       }
     vars <- names(fit$variable.importance)
-    dat <- dat[,c("V1",vars)]
-    fit <- rpart(V1~.,dat,method = "anova",control = control, y = TRUE)
+    fit <- rpart(V1~.,dat[,c("V1",vars)],method = "anova",control = control, y = TRUE)
     if (xval > 1) {
       cp.min.id <- which.min(fit$cptable[,"xerror"])
       fit <- prune(fit, cp = fit$cptable[cp.min.id,"CP"])
@@ -56,10 +54,16 @@ surfacemodel <- function(img, nb, trim.vars = TRUE, control, keep.data = FALSE, 
               trim.vars = trim.vars,
               nb = nb,
               Fr = exptailecdf(r),
-              MSE = mean(r^2)
+              MSE = mean(r^2),
+              standardize = standardize
   )
-  if (keep.data) out$dat <- dat
-  if (xval > 1) out$R2cv <- 1 - fit$cptable[cp.min.id,4]
+
+  if (xval > 1) {
+    out$R2cv <- 1 - fit$cptable[cp.min.id, 4]
+    out$complexity <- fit$cptable[cp.min.id, 1]
+  } else
+    out$complexity <- cp
+  if (trim.vars) out$vars <- vars
   class(out) <- "surfacemodel"
 
   if (verbose)  {
