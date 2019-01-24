@@ -71,5 +71,6 @@ surfacemodel <- function(img, nb, trim.vars = TRUE, cp = 1e-5, xval = 5,
     cat("  Total user elapsed time: ", (proc.time() - ptm)[1], "\n")
     if (xval > 1) cat("  Cross-validated R-squared: ", 1 - fit$cptable[cp.min.id,4], "\n")
   }
+  rm(list = setdiff(ls(), 'out'))
   out
 }

@@ -5,24 +5,26 @@
 Statistical Process Control for Stochastic Textured Surfaces
 }
 \description{
-Provides statistical process control tools for stochastic textured surfaces. The current version supports the following tools:
+Provides statistical process control tools for stochastic textured surfaces. Some tools in the package can also be used in non-SPC contexts that deal with stochastic textured surface images (see Section Details below). The current version supports the following tools:
 
-(1) monitors and diagnoses for local defects on the stochastic textured surfaces, which was proposed by Bui and Apley (2018a)
+(1) generic modeling of stochastic textured surfaces (Bui and Apley 2018a, 2018b)
 
-(2) monitors for global changes in the nature of the stochastic textured surfaces, which was proposed by Bui and Apley (2018b)
+(2) local defect monitoring and diagnostics in stochastic textured surfaces (Bui and Apley 2018a)
+
+(3) global change monitoring in the nature of stochastic textured surfaces (Bui and Apley 2018b)
+
+(4) computation of dissimilarity matrix of stochastic textured surface images (Bui and Apley 2019b).
 }
 \details{
-Stochastic textured surface data can be viewed as two-dimensional stochastic processes. Some examples of the stochastic textured surface data include microscopy images of material microstructure and images of stone countertops, lumber surfaces and textile fabrics with weave patterns. The stochastic textured surface data need not be images. Point cloud surface roughness data of metal parts are also examples of the stochastic textured surface data.
+Stochastic textured surface (STS) is the term used in Bui and Apley (2018a) to refer to a class of measurement data of material surfaces that have no distinct features other than stochastic characteristics that vary randomly. A few examples of STS data include microscopy images of material microstructure samples and images of lumber surfaces, engineered stone countertops, ceramic capacitor surfaces, and textile materials that show weave patterns (Bui and Apley 2017a, 2017b, 2019a).
 
-Recent statistical process control (SPC) literature has mainly focused on profile data. Most existing works in this area require the profiles to have a gold standard, which is a meaningful profile mean function. However, stochastic textured surface data do not have gold standards, making the SPC literature for the profile data inapplicable (see Bui and Apley 2018a for more details). Other SPC methods that may be applicable to STS data rely on some type of feature extraction from the STS images, but they are problem specific because prior knowledge of the defects/changes is needed in order to define suitable features.
+For STS data, even of the same nature, each image is completely different from others on a pixel-by-pixel basis. In addition, it is not straightforward to align, transform, or warp them into a common "gold standard" image, as a basis for comparison. The existence of a gold standard is a fundamental requirement for most of the statistical process control (SPC) literature for profile and multivariate data that are not STSs. An example of a gold standard in non-STS data is an image of a circuit assembly with perfectly positioned chips, to which images of actual assemblies with chips positioned inaccurately are compared for SPC quality control purposes. Existing SPC methods that may be applicable to STS data rely on some form of feature extraction from the STS images (e.g., a specific frequency component from a spectral analysis of the image), but they are problem specific because prior knowledge of abnormal behavior is needed to define suitable features.
 
-This package provides general SPC tools for the stochastic textured suface data without requiring advanced knowledge of defects/changes. In this version, the package provides the following tools.
+The \pkg{spc4sts} (Statistical Process Control for Stochastic Textured Surfaces) package is the first implementation of the methods in Bui and Apley (2018a), Bui and Apley (2018b), and Bui and Apley (2019), and serves as the first off-the-shelf toolkit for performing SPC for general STS data without prior knowledge of abnormal behavior. The package is applicable to a wide range of materials as mentioned above, including random heterogeneous materials.
 
-The first tool focuses on monitoring and diagnosing general local defects that occur on local regions on the stochastic textured surfaces. This approach was proposed in Bui and Apley (2018a). For demonstration, the package includes functions to simulate stochastic textured surface images with/without local defects. For real images in a textile application, the data package "textile" on CRAN can be used.
+Some tools in the package can also be used in non-SPC contexts that deal with STS images. First, the STS modeling tool can be used in STS image characterization and reconstruction (e.g., powder materials micrograph characterization and materials microstructure image reconstruction). Second, the surface dissimilarity calculation tool can be used for STS image classification, clustering, and outlier detection. Some examples are medical microscopy image classification, cancer tissue image clustering, and outlying mammalian cell image detection.
 
-The second tool focuses on monitoring for general global changes that affect the entire nature of the stochastic textured surfaces, as opposed to changes that occur in just some local regions. This approach was proposed in Bui and Apley (2018b). For illustration, the functions for simulating stochastic textured surface images mentioned above can be used. The global changes can be obtained via changing parameters of the simulated surfaces. For real images in a textile application, the R data packages "textile" of Bui and Apley (2017a), which has images with and without local defects, can also be used. There is also a much larger textile image data set provided in the R data package "textile2" of Bui and Apley (2017b), but this data set only contain images without local defects.
-
-Brief descriptions of the main functions are provided below:
+Brief descriptions of the main functions of the package are provided below:
 
 \code{surfacemodel()} builds a supervised learning model (a regression tree in this version) to characterize the statistical behavior of the given stochastic textured surface data sample.
 
@@ -31,6 +33,8 @@ Brief descriptions of the main functions are provided below:
 \code{climit()} establishes the control limits (for local defects and/or global changes) at the given false alarm rates based on the monitoring statistics (for local defects and/or global changes) computed for a set of in-control images (i.e., without local defects or global changes) using \code{monitoringStat()}. It also constructs the diagnostic thresholds (for diagnosing local defects) to be used for \code{diagnoseLD()}.
 
 \code{diagnoseLD()} produces a binary diagnostic image that highlights local defects (if any) in the given stochastic textured surface image.
+
+\code{disMat()}: computes KL and/or AKL dissimilarity matrices for the given stochastic textured surface images.
 }
 
 \references{
@@ -40,7 +44,11 @@ Bui, A.T., and Apley, D.W. (2017b), Textile Images 2, Mendeley Data, v1. http://
 
 Bui, A.T. and Apley., D.W. (2018a) "A Monitoring and Diagnostic Approach for Stochastic Textured Surfaces", Technometrics, 60, 1-13.
 
-Bui, A.T. and Apley, D.W. (2018b) "Monitoring for changes in the nature of stochastic textured surfaces", Journal of Quality Technology, to appear.
+Bui, A.T. and Apley, D.W. (2018b) "Monitoring for changes in the nature of stochastic textured surfaces", Journal of Quality Technology, 50, 363-378.
+
+Bui, A.T. and Apley D.W. (2019a) “Textile Image 3”, figshare, http://dx.doi.org/10.6084/m9.figshare.7619351.v1.
+
+Bui, A.T. and Apley, D.W. (2019b) "An exploratory analysis approach for understanding variation in stochastic textured surfaces", under review.
 }
 \author{
 Anh Tuan Bui and Daniel W. Apley

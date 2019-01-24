@@ -33,7 +33,7 @@ the weighted matrix.
 The spatial weighted covariance.
 }
 \references{
-Bui, A.T. and Apley., D.W. (2018a) "A Monitoring and Diagnostic Approach for Stochastic Textured Surfaces", Technometrics, 60, 1-13.s
+Bui, A.T. and Apley., D.W. (2018a) "A Monitoring and Diagnostic Approach for Stochastic Textured Surfaces", Technometrics, 60, 1-13.
 }
 \author{
 Anh Bui

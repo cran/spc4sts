@@ -40,7 +40,7 @@ monitoringStat <- function(img, model, type, stat = c("ad", "bp"), w, cl = NULL,
 
   dat <- dataPrep(img, model$nb)
 
-  r0j <- dat[,1] - as.numeric(predict(model$fit, dat))
+  r0j <- dat[,1] - predict(model$fit, dat)
 
   ## local defect
   if (1 %in% type) {
@@ -114,5 +114,6 @@ monitoringStat <- function(img, model, type, stat = c("ad", "bp"), w, cl = NULL,
   if (2 %in% type) out$globalStat <- gStat
 
   class(out) <- "monitoringStat"
+  rm(list = setdiff(ls(), 'out'))
   out
 }

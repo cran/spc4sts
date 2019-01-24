@@ -4,7 +4,7 @@
 Matchbox Change
 }
 \description{
-Modifies a given image to have a matchbox change, which is used in Bui and Apley (2017).
+Modifies a given image to have a matchbox change.
 }
 \usage{
 mbChange(img, alpha = 1)
@@ -24,7 +24,7 @@ Each column \code{i} of \code{img} is modified as follows: \code{img[2:nrow(img)
 The matchboxed image in the matrix format.
 }
 \references{
-Bui, A.T. and Apley, D.W. (2018b) "Monitoring for changes in the nature of stochastic textured surfaces", Journal of Quality Technology, to appear.
+Bui, A.T. and Apley, D.W. (2018b) "Monitoring for changes in the nature of stochastic textured surfaces", Journal of Quality Technology, 50, 363–378.
 }
 \author{
 Anh Bui

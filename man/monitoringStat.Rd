@@ -4,7 +4,7 @@
 Monitoring Statistic for Stochastic Textured Surfaces
 }
 \description{
-Computes monitoring statistic(s) for local defects (see Bui and Apley 2017a) and/or global changes (see Bui and Apley 2017b) for a given stochastic textured surface image.
+Computes monitoring statistic(s) for local defects (see Bui and Apley 2018a) and/or global changes (see Bui and Apley 2018b) for a given stochastic textured surface image.
 }
 \usage{
 monitoringStat(img, model, type, stat = c("ad", "bp"), w, cl = NULL, verbose = FALSE)
@@ -44,7 +44,7 @@ A \code{monitoringStat} object containing the following components:
 \references{
 Bui, A.T. and Apley., D.W. (2018a) "A Monitoring and Diagnostic Approach for Stochastic Textured Surfaces", Technometrics, 60, 1-13.
 
-Bui, A.T. and Apley, D.W. (2018b) "Monitoring for changes in the nature of stochastic textured surfaces", Journal of Quality Technology, to appear.
+Bui, A.T. and Apley, D.W. (2018b) "Monitoring for changes in the nature of stochastic textured surfaces", Journal of Quality Technology, 50, 363–378.
 }
 \author{
 Anh Bui

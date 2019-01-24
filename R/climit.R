@@ -1,9 +1,12 @@
-climit <- function(imgs, fa.rate = c(.05,.0027), model,
-                   type, stat = c("ad", "bp"), w, nD = c(5, 100))
+climit <- function(imgs, fa.rate, model,
+                   type, stat=c("ad", "bp"), w, nD=10)
 {
 
   if (!is.array(imgs)) stop("img must be a 3-dimensional array.")
   else if (length(dim(imgs)) != 3) stop("img must be a 3-dimensional array.")
+
+  if (missing(type))
+    stop("A false alarm rate(s) must be provided.")
 
   if (class(model) != "surfacemodel") stop("Wrong input for the model argument! Needs a surfacemodel object.")
 
@@ -20,7 +23,7 @@ climit <- function(imgs, fa.rate = c(.05,.0027), model,
 
     M <- dim(imgs)[1]*dim(imgs)[2]
     nD <- nD*N
-    nD.max = max(nD)
+    nD.max = max(nD, round(dim(imgs)[1]*dim(imgs)[2]*.0016))
     tmp <- NULL
   }
 
@@ -34,6 +37,7 @@ climit <- function(imgs, fa.rate = c(.05,.0027), model,
     }
     if (2 %in% type)
       PI.global.stats[j] <- mStat$globalStat
+    gc(verbose = FALSE)
   }
 
   if (1 %in% type) {

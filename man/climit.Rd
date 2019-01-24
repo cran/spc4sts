@@ -8,7 +8,7 @@ Control Limit and Diagnostic Threshold Construction
 Establish control limits (for local defects and/or global changes) and diagnostic thresholds (for local defects) from the given Phase I images. \code{climit} is used for the first time. \code{climit2} can update the control limits and diagnostic thresholds given the output of \code{climit}. See Warning.
 }
 \usage{
-climit(imgs, fa.rate = c(.05,.0027), model, type, stat = c("ad", "bp"), w, nD = c(5, 100))
+climit(imgs, fa.rate, model, type, stat = c("ad", "bp"), w, nD = 10)
 climit2(cl, fa.rate, nD)
 }
 \arguments{
@@ -43,12 +43,11 @@ An object of class \code{climit}. See \code{\link{climit.object}}.
 \references{
 Bui, A.T. and Apley., D.W. (2018a) "A Monitoring and Diagnostic Approach for Stochastic Textured Surfaces", Technometrics, 60, 1-13.
 
-Bui, A.T. and Apley, D.W. (2018b) "Monitoring for changes in the nature of stochastic textured surfaces", Journal of Quality Technology, to appear.
+Bui, A.T. and Apley, D.W. (2018b) "Monitoring for changes in the nature of stochastic textured surfaces", Journal of Quality Technology, 50, 363–378.
 }
 \author{
 Anh Bui
 }
-\section{Warning }{It is better to set the maximum value in \code{nD} large enough. \code{climit} will only keep the information (for \code{climit2}) to update the diagnostic threshold up to this value.}
 \seealso{
 \code{\link{monitoringStat}, \link{diagnoseLD}}
 }
