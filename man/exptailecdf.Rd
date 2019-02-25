@@ -1,6 +1,6 @@
 \name{exptailecdf}
 \alias{exptailecdf}
-\alias{exptailecdf.default}
+\alias{print.exptailecdf}
 \title{
 Empirical Cumulative Distribution Function with Exponential Tail Approximation
 }
@@ -22,7 +22,7 @@ the \code{m}th observation from each extreme of the ecdf is the starting point t
 }
 }
 \details{
-An ecdf has a probability of 0 or 1 for any new observation that lies beyond the range of the data of the cedf. This is a problem when using the ecdf as the reference cdf for the one-sample Anderson-Darling (AD) statistic because the AD statistic is infinite/undefined with such probabilities. The ecdf with exponential tail approximation replaces the tails of the ecdf with exponential curves, which extend to infinity, to solve this problem. The exponential curves are estimated using the observations at the tails of the ecdf. See Bui and Apley (2017) for more details.
+An ecdf has a probability of 0 or 1 for any new observation that lies beyond the range of the data of the cedf. This is a problem when using the ecdf as the reference cdf for the one-sample Anderson-Darling (AD) statistic because the computational formula of the AD statistic is infinite with such probabilities. The ecdf with exponential tail approximation replaces the tails of the ecdf with exponential curves, which extend to infinity, to solve this problem. The exponential curves are estimated using the observations at the tails of the ecdf. See Bui and Apley (2018a) for more details.
 }
 \value{
 An object of class \code{exptailecdf}. See \code{\link{exptailecdf.object}}

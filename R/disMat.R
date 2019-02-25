@@ -109,6 +109,6 @@ disMat <- function(imgs, nb, cp=1e-3, subsample = c(1, .5),
   }
 
   if (keep.fits) save(fits, file=paste(getwd(),"/fits.Rdata",sep=""))
-  rm(list = setdiff(ls(), 'out'))
+  rm(list = setdiff(ls(), "out"))
   out
 }

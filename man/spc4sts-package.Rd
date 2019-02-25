@@ -48,7 +48,7 @@ Bui, A.T. and Apley, D.W. (2018b) "Monitoring for changes in the nature of stoch
 
 Bui, A.T. and Apley D.W. (2019a) “Textile Image 3”, figshare, http://dx.doi.org/10.6084/m9.figshare.7619351.v1.
 
-Bui, A.T. and Apley, D.W. (2019b) "An exploratory analysis approach for understanding variation in stochastic textured surfaces", under review.
+Bui, A.T. and Apley, D.W. (2019b) "An exploratory analysis approach for understanding variation in stochastic textured surfaces", Computational Statistics & Data Analysis, in press. doi:10.1016/j.csda.2019.01.019.
 }
 \author{
 Anh Tuan Bui and Daniel W. Apley

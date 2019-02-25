@@ -1,5 +1,6 @@
 \name{monitoringStat}
 \alias{monitoringStat}
+\alias{print.monitoringStat}
 \title{
 Monitoring Statistic for Stochastic Textured Surfaces
 }
@@ -53,13 +54,6 @@ Anh Bui
 \code{\link{surfacemodel}, \link{sms}, \link{dataPrep}}
 }
 \examples{
-## build the in-control model
-img <- sarGen(phi1 = .6, phi2 = .35, m = 100, n = 100, border = 50) # training image
-model <- surfacemodel(img,1)
-
-## generate an image and compute its monitoring statistic
-img2 <- sarGen(phi1 = .6, phi2 = .35, m = 100, n = 100, border = 50)
-ms <- monitoringStat(img2, model, type = 1:2, stat = "ad", w = 5)
-ms$localStat # monitoring statistic for local defects
-ms$globalStat # monitoring statistic for global changes
+## see the examples in the help file of climit()
+?climit
 }

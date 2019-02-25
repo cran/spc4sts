@@ -33,19 +33,6 @@ Anh Bui
 \code{\link{monitoringStat}, \link{climit}}
 }
 \examples{
-## build the in-control model
-img <- sarGen(phi1 = .6, phi2 = .35, m = 100, n = 100, border = 50) # training image
-model <- surfacemodel(img,1)
-
-## diagnose a Phase II image
-img2 <- sarGen(phi1 = .6, phi2 = .35, m = 100, n = 100, border = 50)
-img2 <- imposeDefect(img2)
-ms <- monitoringStat(img2$img, model, type = 1, stat = "ad", w = 5)
-bimg <- diagnoseLD(ms, dth = 9, plot.it = FALSE) # use climit() to find dth
-par(mfcol = c(1, 2))
-par(mar = c(2, 0.5, 1, 0.5))
-image(xaxt = 'n', yaxt = 'n', as.matrix(t(apply(img2$img , 2, rev))),
-      col = gray((0:32)/32), xlab = '', ylab = '', asp = 1, bty = 'n')
-image(xaxt = 'n', yaxt = 'n', as.matrix(t(apply(bimg , 2, rev))),
-      col = gray(c(1, .5)), xlab = '', ylab = '', asp = 1, bty = 'n')
+## ## see the examples in the help file of climit()
+?climit
 }

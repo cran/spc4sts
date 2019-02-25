@@ -1,5 +1,6 @@
 \name{surfacemodel}
 \alias{surfacemodel}
+\alias{print.surfacemodel}
 \title{
 Statistical reprentations of stochastic textured surfaces using supervised learning.
 }

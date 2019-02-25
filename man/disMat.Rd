@@ -37,7 +37,7 @@ if set to \code{TRUE}, output some computational time information.
 the KL and AKL dissimilarity matrices.
 }
 \references{
-Bui, A.T. and Apley, D.W. (2019) "An exploratory analysis approach for understanding variation in stochastic textured surfaces", under review.
+Bui, A.T. and Apley, D.W. (2019b) "An exploratory analysis approach for understanding variation in stochastic textured surfaces", Computational Statistics & Data Analysis, in press. doi:10.1016/j.csda.2019.01.019.
 }
 \author{
 Anh Bui

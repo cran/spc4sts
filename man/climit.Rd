@@ -1,6 +1,7 @@
 \name{climit}
 \alias{climit}
 \alias{climit2}
+\alias{print.climit}
 \title{
 Control Limit and Diagnostic Threshold Construction
 }
@@ -57,7 +58,7 @@ img <- sarGen(phi1 = .6, phi2 = .35, m = 100, n = 100, border = 50) # training i
 model <- surfacemodel(img,1)
 
 ## generate Phase I images
-imgs <- array(0, c(100,100,1))
+imgs <- array(0, c(100,100,3))
 for (j in 1:dim(imgs)[3]) imgs[,,j] <- sarGen(phi1 = .6, phi2 = .35, m = 100, n = 100, border = 50)
 
 ## establish control limits and diagnostic thresholds
@@ -75,6 +76,15 @@ ms3 <- monitoringStat(img = img3, model = model, cl = cl2) # computing monitorin
 # now create a new image with parameters reduced by 5%, representing a global change
 img4 <- sarGen(phi1 = .6*.95, phi2 = .35*.95, m = 100, n = 100, border = 50)
 ms4 <- monitoringStat(img = img4, model = model, cl = cl2) # computing monitoring statistic
+
+## diagnose for local defect regions in img3
+bimg <- diagnoseLD(ms3, dth = 9, plot.it = FALSE) # use climit() to find dth
+par(mfcol = c(1, 2))
+par(mar = c(2, 0.5, 1, 0.5))
+image(xaxt = 'n', yaxt = 'n', as.matrix(t(apply(img3 , 2, rev))),
+      col = gray((0:32)/32), xlab = '', ylab = '', asp = 1, bty = 'n')
+image(xaxt = 'n', yaxt = 'n', as.matrix(t(apply(bimg , 2, rev))),
+      col = gray(c(1, .5)), xlab = '', ylab = '', asp = 1, bty = 'n')
 
 #
 # NOTE: The above example is just for quick illustration. To obtain a good

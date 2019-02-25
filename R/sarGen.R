@@ -14,6 +14,6 @@ sarGen <- function(phi1 = .6, phi2 = .35, sigma = .01, m = 250, n = 250, border 
   newImg <- round((newImg - min(newImg))/(max(newImg) - min(newImg))*255)
   newImg <- apply(newImg,1:2,as.integer)
 
-  newImg
+  invisible(newImg)
 
 }

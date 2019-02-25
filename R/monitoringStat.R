@@ -45,7 +45,7 @@ monitoringStat <- function(img, model, type, stat = c("ad", "bp"), w, cl = NULL,
   ## local defect
   if (1 %in% type) {
     res <- matrix(r0j, nrow(img) - model$nb[1],
-                  ncol(img) - sum(model$nb[2:3]), byrow=TRUE);
+                  ncol(img) - sum(model$nb[2:3]), byrow=TRUE)
 
     ms <- sms(res, stat, w, Fr = model$Fr) # SMS
 
@@ -61,6 +61,7 @@ monitoringStat <- function(img, model, type, stat = c("ad", "bp"), w, cl = NULL,
     ms2[s1:e1,s2:e2] <- ms # SMS with the size of the original image
 
     lStat <- max(ms)
+
 
     if (!is.null(cl) & verbose) {
       i <- 1
@@ -114,6 +115,6 @@ monitoringStat <- function(img, model, type, stat = c("ad", "bp"), w, cl = NULL,
   if (2 %in% type) out$globalStat <- gStat
 
   class(out) <- "monitoringStat"
-  rm(list = setdiff(ls(), 'out'))
+  rm(list = setdiff(ls(), "out"))
   out
 }

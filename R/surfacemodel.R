@@ -64,13 +64,14 @@ surfacemodel <- function(img, nb, trim.vars = TRUE, cp = 1e-5, xval = 5,
   } else
     out$complexity <- cp
   if (trim.vars) out$vars <- vars
-  class(out) <- "surfacemodel"
 
   if (verbose)  {
     cat("Completed!\n")
     cat("  Total user elapsed time: ", (proc.time() - ptm)[1], "\n")
     if (xval > 1) cat("  Cross-validated R-squared: ", 1 - fit$cptable[cp.min.id,4], "\n")
   }
-  rm(list = setdiff(ls(), 'out'))
+
+  class(out) <- "surfacemodel"
+  rm(list = setdiff(ls(), "out"))
   out
 }

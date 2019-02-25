@@ -4,7 +4,7 @@
 Neighborhood Data Preparation
 }
 \description{
-Prepares a neighborhood data from a given image, using the left-to-right then top-to-bottom raster scan order (see Bui and Apley 2017a).
+Prepares a neighborhood data from a given image, using the left-to-right then top-to-bottom raster scan order (see Bui and Apley 2018a).
 }
 \usage{
 dataPrep(img, nb, vars = NULL, subsample = 1)
