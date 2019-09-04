@@ -32,8 +32,6 @@ Only rows without missing values (corresponding to pixels with full neighborhood
 }
 \references{
 Bui, A.T. and Apley., D.W. (2018a) "A Monitoring and Diagnostic Approach for Stochastic Textured Surfaces", Technometrics, 60, 1-13.
-
-Bui, A.T. and Apley, D.W. (2018b) "Monitoring for changes in the nature of stochastic textured surfaces", Journal of Quality Technology, 50, 363–378.
 }
 \author{
 Anh Bui

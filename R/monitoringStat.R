@@ -36,14 +36,22 @@ monitoringStat <- function(img, model, type, stat = c("ad", "bp"), w, cl = NULL,
     }
   }
 
+  if (verbose) {
+    ptm <- proc.time()
+    cat('Preparing Data... ')
+  }
   if (model$standardize) img <- (img - mean(img))/sd(img)
-
   dat <- dataPrep(img, model$nb)
 
   r0j <- dat[,1] - predict(model$fit, dat)
-
+  if (verbose) {
+    ptm1 <- proc.time()
+    cat('Completed!\n  User elapsed time:', (ptm1 - ptm)[1], '\n')
+  }
   ## local defect
   if (1 %in% type) {
+    if (verbose)
+      cat('Computing local defect monitoring statistic... ')
     res <- matrix(r0j, nrow(img) - model$nb[1],
                   ncol(img) - sum(model$nb[2:3]), byrow=TRUE)
 
@@ -61,16 +69,18 @@ monitoringStat <- function(img, model, type, stat = c("ad", "bp"), w, cl = NULL,
     ms2[s1:e1,s2:e2] <- ms # SMS with the size of the original image
 
     lStat <- max(ms)
-
-
-    if (!is.null(cl) & verbose) {
-      i <- 1
-      cat("Local monitoring statistic = ", lStat, "\n")
-      for (ucl in cl$localStat$control.limit) {
-        cat("    At the", names(cl$localStat$control.limit)[i]," control limit: ", ucl)
-        i <- i  + 1
-        if (lStat > ucl)        cat("  ->  Out-of-control!\n")
-        else        cat("  ->  In-control!\n")
+    if (verbose) {
+      ptm2 <- proc.time()
+      cat('Completed!\n  User elapsed time:', (ptm2 - ptm1)[1], '\n')
+      cat("  Statistic:", lStat, "\n")
+      if (!is.null(cl)) {
+        i <- 1
+        for (ucl in cl$localStat$control.limit) {
+          cat("  At the", names(cl$localStat$control.limit)[i],"control limit:", ucl)
+          i <- i  + 1
+          if (lStat > ucl)        cat(" -> Out-of-control!\n")
+          else        cat(" -> In-control!\n")
+        }
       }
     }
 
@@ -78,28 +88,34 @@ monitoringStat <- function(img, model, type, stat = c("ad", "bp"), w, cl = NULL,
 
   ## global change
   if (2 %in% type) {
+    if (verbose)
+      cat('Computing global change monitoring statistic... ')
+
     fit <- rpart(V1~., dat, method = "anova", control = control, y = TRUE)
     gStat <- log(model$MSE/mean(residuals(fit)^2)) + mean(r0j^2)/model$MSE - 1
-
-    if (!is.null(cl) & verbose) {
-      i <- 1
-      cat("Global monitoring statistic = ", gStat, "\n")
-      if (!is.na(cl$globalStat$control.limit.trans_chi2)) {
-        for (ucl in cl$globalStat$control.limit.trans_chi2) {
-          cat("   At the", names(cl$globalStat$control.limit.trans_chi2)[i],
-              " (transformed chi-squared) control limit: ", ucl)
-          i <- i + 1
-          if (gStat > ucl)        cat("  ->  Out-of-control!\n")
-          else        cat("  ->  In-control!\n")
+    if (verbose) {
+      ptm3 <- proc.time()
+      cat('Completed!\n  User elapsed time:', (ptm3 - ptm2)[1], '\n')
+      cat("  Statistic:", gStat, "\n")
+      if (!is.null(cl)) {
+        i <- 1
+        if (!is.na(cl$globalStat$control.limit.trans_chi2)) {
+          for (ucl in cl$globalStat$control.limit.trans_chi2) {
+            cat("  At the", names(cl$globalStat$control.limit.trans_chi2)[i],
+                "(transformed chi-squared) control limit: ", ucl)
+            i <- i + 1
+            if (gStat > ucl)        cat(" -> Out-of-control!\n")
+            else        cat(" -> In-control!\n")
+          }
         }
-      }
-      i <- 1
-      for (ucl in cl$globalStat$control.limit.ecdf) {
-        cat("   At the", names(cl$globalStat$control.limit.trans_chi2)[i],
-            " (ecdf) control limit: ", ucl)
-        i <- i + 1
-        if (gStat > ucl)        cat("  ->  Out-of-control!\n")
-        else        cat("  ->  In-control!\n")
+        i <- 1
+        for (ucl in cl$globalStat$control.limit.ecdf) {
+          cat("  At the", names(cl$globalStat$control.limit.trans_chi2)[i],
+              "(ecdf) control limit: ", ucl)
+          i <- i + 1
+          if (gStat > ucl)        cat(" -> Out-of-control!\n")
+          else        cat(" -> In-control!\n")
+        }
       }
     }
   }

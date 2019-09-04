@@ -1,15 +1,18 @@
 \name{surfacemodel}
 \alias{surfacemodel}
 \alias{print.surfacemodel}
+\alias{plot.surfacemodel}
 \title{
-Statistical reprentations of stochastic textured surfaces using supervised learning.
+Statistical reprentations of stochastic textured surfaces using supervised learning
 }
 \description{
 Provides a statistical represenation for a given stochastic textured surface image via a supervised learning model (a regression tree in this version).
 }
 \usage{
-surfacemodel(img, nb, trim.vars = TRUE, cp = 1e-5, xval = 5,
-             standardize = TRUE, subsample = 1, verbose = FALSE)
+surfacemodel(img, nb, trim.vars = TRUE, cp = 1e-5,
+             xval = 5, standardize = TRUE, subsample = 1,
+             verbose = FALSE, keep.residuals = FALSE,
+             stationary.test = FALSE, conf.level = .95, nsamples = 20)
 }
 \arguments{
   \item{img}{
@@ -36,23 +39,34 @@ the portion of pixels in the given image \code{img} to be used. It takes values 
   \item{verbose}{
 if \code{TRUE}, output some model fitting information.
 }
+\item{keep.residuals}{
+if \code{TRUE}, keep residuals of the fitted model in the output.
+}
+\item{stationary.test}{
+if \code{TRUE}, perform a stationary test for the given image \code{img}.
+}
+\item{conf.level}{
+the confidence level of the stationary test. If the \emph{p}-value of the test is not greater than \code{1 - conf.level}, the function will stop and return the \emph{p}-value.
+}
+\item{nsamples}{the number of bootstrap samples in the stationary test.}
 }
 \value{
 A \code{surfacemodel} object containing the following components:
-\item{fit }{the pruned \code{rpart} tree using cross-validation}
-\item{trim.vars}{the \code{trim.vars} argument}
-\item{nb }{the \code{nb} argument}
-\item{Fr }{the empirical cdf with exponential tail approximation of the model residuals}
-\item{MSE }{the mean squared residuals}
-\item{standardize }{the \code{standardize} argument}
-\item{R2cv }{the cross-validated R-squared of \code{fit}}
+\item{fit }{the pruned \code{rpart} tree using cross-validation.}
+\item{trim.vars}{the \code{trim.vars} argument.}
+\item{nb }{the \code{nb} argument.}
+\item{Fr }{the empirical cdf with exponential tail approximation of the model residuals.}
+\item{MSE }{the mean squared residuals.}
+\item{standardize }{the \code{standardize} argument.}
+\item{R2cv }{the cross-validated R-squared of \code{fit}.}
 \item{complexity }{the complexity value of the returned \code{fit}.}
-\item{vars }{the variables used in the formula when fitting the model}
+\item{vars }{the variables used in the formula when fitting the model.}
+\item{p.value }{the p-value of the stationary test.}
+\item{nsamples }{the number of bootstrap samples in the stationary test.}
+\item{residuals }{the residuals of the fitted model.}
 }
 \references{
 Bui, A.T. and Apley., D.W. (2018a) "A Monitoring and Diagnostic Approach for Stochastic Textured Surfaces", Technometrics, 60, 1-13.
-
-Bui, A.T. and Apley, D.W. (2018b) "Monitoring for changes in the nature of stochastic textured surfaces", Journal of Quality Technology, 50, 363–378.
 }
 \author{
 Anh Bui
@@ -62,22 +76,27 @@ The best value for the neighborhood size \code{nb} argument can be chosen by com
 
 After finalizing the choice of \code{nb}, it is better to set \code{trim.vars = TRUE} to further remove some unused variables within that neighborhood.
 
-The raster scan order for constructing the neiborhood data in \code{dataPrep()} is left-to-right then top-to-bottom (see Bui and Apley 2017). Rotating the image by every 90 degrees could be used to quicly change to some other raster scan orders. Again, the cross-validated R-squared \code{R2cv} output can be used to select the best raster scan order. See the below examples.
+The raster scan order for constructing the neiborhood data in \code{dataPrep()} is left-to-right then top-to-bottom (see Bui and Apley 208a). Rotating the image by every 90 degrees could be used to quicly change to some other raster scan orders. Again, the cross-validated R-squared \code{R2cv} output can be used to select the best raster scan order. See the below examples.
 
+The stationary test is performed by using the \code{\link{TOS2D}} function in the \code{LS2Wstat} package.
+
+\code{plot.surfacemodel()} is a generic function for \code{surfacemodel()} that produces two plots: a plot of the cross-validation R-squared against the complexity parameter and a histogram of the residuals (along with a normal density curve) of the fitted model.
 }
 \seealso{
 \code{\link{dataPrep}, \link{showNb}, \link{monitoringStat}, \link{rpart}}
 }
 \examples{
 ## fit a model to characterize the surface of a simulated image:
-img <- sarGen(m = 100, n = 100, border = 50) # training image
-model <- surfacemodel(img, nb = 1) # see Note above for how to select nb
-model$R2cv
+img <- sarGen(m = 50, n = 50, border = 50) # training image
+model <- surfacemodel(img, nb = 1, keep.residuals = TRUE) # see Note above for how to select nb
+model
+# plot cross-validation R-squared against complexity parameter and residual histogram
+plot(model, type=1:2)
 
 ## change the raster scan order from left-to-right then top-to-bottom to
 ## left-to-right then bottom-to-top, and re-fit the model
 ## (see the Note section above)
 img2  <- as.matrix(t(apply(img , 2, rev)))
 model2 <- surfacemodel(img2, nb = 1)
-model2$R2cv # expected to be smaller than model$R2cv
+model2$R2cv # cross-validation R-squared
 }

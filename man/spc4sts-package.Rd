@@ -46,9 +46,9 @@ Bui, A.T. and Apley., D.W. (2018a) "A Monitoring and Diagnostic Approach for Sto
 
 Bui, A.T. and Apley, D.W. (2018b) "Monitoring for changes in the nature of stochastic textured surfaces", Journal of Quality Technology, 50, 363-378.
 
-Bui, A.T. and Apley D.W. (2019a) “Textile Image 3”, figshare, http://dx.doi.org/10.6084/m9.figshare.7619351.v1.
+Bui, A.T. and Apley D.W. (2019a) "Textile Image 3", figshare, http://dx.doi.org/10.6084/m9.figshare.7619351.v1.
 
-Bui, A.T. and Apley, D.W. (2019b) "An exploratory analysis approach for understanding variation in stochastic textured surfaces", Computational Statistics & Data Analysis, in press. doi:10.1016/j.csda.2019.01.019.
+Bui, A.T. and Apley, D.W. (2019b) "An exploratory analysis approach for understanding variation in stochastic textured surfaces", Computational Statistics & Data Analysis, 137, 33-50.
 }
 \author{
 Anh Tuan Bui and Daniel W. Apley

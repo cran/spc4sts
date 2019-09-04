@@ -23,6 +23,3 @@ the control limit of the control chart.
 \author{
 Anh Bui
 }
-\references{
-Bui, A. T., and Apley, D.W. (2019) \bold{spc4sts}: Statistical Process Control for Stochastic Textured Surfaces in R, working paper.
-}

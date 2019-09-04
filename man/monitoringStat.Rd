@@ -45,7 +45,7 @@ A \code{monitoringStat} object containing the following components:
 \references{
 Bui, A.T. and Apley., D.W. (2018a) "A Monitoring and Diagnostic Approach for Stochastic Textured Surfaces", Technometrics, 60, 1-13.
 
-Bui, A.T. and Apley, D.W. (2018b) "Monitoring for changes in the nature of stochastic textured surfaces", Journal of Quality Technology, 50, 363–378.
+Bui, A.T. and Apley, D.W. (2018b) "Monitoring for changes in the nature of stochastic textured surfaces", Journal of Quality Technology, 50, 363-378.
 }
 \author{
 Anh Bui
@@ -54,6 +54,8 @@ Anh Bui
 \code{\link{surfacemodel}, \link{sms}, \link{dataPrep}}
 }
 \examples{
-## see the examples in the help file of climit()
+# run the example in the help file of climit()
 ?climit
+
+
 }

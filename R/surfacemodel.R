@@ -1,5 +1,7 @@
-surfacemodel <- function(img, nb, trim.vars = TRUE, cp = 1e-5, xval = 5,
-                         standardize = TRUE, subsample = 1, verbose = FALSE) {
+surfacemodel <- function(img, nb, trim.vars = TRUE, cp = 1e-5,
+                         xval = 5, standardize = TRUE, subsample = 1,
+                         verbose = FALSE, keep.residuals = FALSE,
+                         stationary.test = FALSE, conf.level = .95, nsamples = 20) {
 
   if (!is.matrix(img)) stop("img must be a matrix!")
 
@@ -10,9 +12,29 @@ surfacemodel <- function(img, nb, trim.vars = TRUE, cp = 1e-5, xval = 5,
       stop("nb must be either a scalar or a vector of length 3!")
     if (any(nb < 1)) stop("nb must be positive!")
   }
-
-  if (verbose)  cat("Building the model... ")
   ptm <- proc.time()
+  if (stationary.test) {
+    if (verbose)
+      cat("Testing for stationary assumption... ")
+    pvalue <- stationaryTest(img, nsamples = nsamples, verbose = verbose)$p.value
+    if (verbose)  {
+      cat("Completed!\n")
+      cat("  User elapsed time: ", (proc.time() - ptm)[1], "\n")
+    }
+    if (pvalue <= 1 - conf.level) {
+      cat('  The given image is not stationary at confidence level:', conf.level, '\n')
+      cat('  The procedure is stopped. Return the p-value of the stationary test:', pvalue, '\n')
+      return(pvalue)
+    } else if (verbose) {
+      cat('  The given image is stationary at confidence level:', conf.level, '\n')
+      cat('  The p-value is', pvalue, '\n')
+    }
+  }
+
+  if (verbose)  {
+    cat("Building the model... ")
+  ptm2 <- proc.time()
+  }
 
   if (length(nb)==1) nb <- rep(nb,3)
 
@@ -31,13 +53,13 @@ surfacemodel <- function(img, nb, trim.vars = TRUE, cp = 1e-5, xval = 5,
 
   if (trim.vars) {
     if (verbose)  {
-      cat("Initial fit completed!\n")
-      cat("  User elapsed time: ", (proc.time() - ptm)[1], "\n")
+      cat("First fit completed!\n")
+      cat("  User elapsed time: ", (proc.time() - ptm2)[1], "\n")
     }
     if (xval > 1)
       if (verbose)  {
-        cat("  Initial cross-validated R-squared: ", 1 - fit$cptable[cp.min.id,4], "\n")
-        cat("Refitting using only variables used in the first fit...")
+        cat("  Cross-validation R-squared: ", 1 - fit$cptable[cp.min.id,4], "\n")
+        cat("Refitting using only important variables in the first fit... ")
       }
     vars <- names(fit$variable.importance)
     fit <- rpart(V1~.,dat[,c("V1",vars)],method = "anova",control = control, y = TRUE)
@@ -63,12 +85,18 @@ surfacemodel <- function(img, nb, trim.vars = TRUE, cp = 1e-5, xval = 5,
     out$complexity <- fit$cptable[cp.min.id, 1]
   } else
     out$complexity <- cp
-  if (trim.vars) out$vars <- vars
-
+  if (trim.vars)
+    out$vars <- vars
+  if (stationary.test) {
+    out$p.value <- pvalue
+    out$nsamples <- nsamples
+  }
+  if (keep.residuals)
+    out$residuals <- r
   if (verbose)  {
     cat("Completed!\n")
     cat("  Total user elapsed time: ", (proc.time() - ptm)[1], "\n")
-    if (xval > 1) cat("  Cross-validated R-squared: ", 1 - fit$cptable[cp.min.id,4], "\n")
+    if (xval > 1) cat("  Cross-validation R-squared: ", 1 - fit$cptable[cp.min.id,4], "\n")
   }
 
   class(out) <- "surfacemodel"
