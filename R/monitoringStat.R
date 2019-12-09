@@ -46,7 +46,7 @@ monitoringStat <- function(img, model, type, stat = c("ad", "bp"), w, cl = NULL,
   r0j <- dat[,1] - predict(model$fit, dat)
   if (verbose) {
     ptm1 <- proc.time()
-    cat('Completed!\n  User elapsed time:', (ptm1 - ptm)[1], '\n')
+    cat('Completed!\n  Elapsed time:', (ptm1 - ptm)[3], '\n')
   }
   ## local defect
   if (1 %in% type) {
@@ -71,7 +71,7 @@ monitoringStat <- function(img, model, type, stat = c("ad", "bp"), w, cl = NULL,
     lStat <- max(ms)
     if (verbose) {
       ptm2 <- proc.time()
-      cat('Completed!\n  User elapsed time:', (ptm2 - ptm1)[1], '\n')
+      cat('Completed!\n  Elapsed time:', (ptm2 - ptm1)[3], '\n')
       cat("  Statistic:", lStat, "\n")
       if (!is.null(cl)) {
         i <- 1
@@ -95,7 +95,7 @@ monitoringStat <- function(img, model, type, stat = c("ad", "bp"), w, cl = NULL,
     gStat <- log(model$MSE/mean(residuals(fit)^2)) + mean(r0j^2)/model$MSE - 1
     if (verbose) {
       ptm3 <- proc.time()
-      cat('Completed!\n  User elapsed time:', (ptm3 - ptm2)[1], '\n')
+      cat('Completed!\n  Elapsed time:', (ptm3 - ptm2)[3], '\n')
       cat("  Statistic:", gStat, "\n")
       if (!is.null(cl)) {
         i <- 1

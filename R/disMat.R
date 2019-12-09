@@ -32,7 +32,7 @@ disMat <- function(imgs, nb, cp=1e-3, subsample = c(1, .5),
       imgs[,,i] <- (imgs[,,i] - mean(imgs[,,i]))/sd(imgs[,,i])
     }
     if (verbose)
-      cat("Completed! User elapsed time: ", (proc.time() - ptm)[1], "\n")
+      cat("Completed! User elapsed time: ", (proc.time() - ptm)[3], "\n")
   }
   ## Model fitting
   if (verbose) {
@@ -41,14 +41,14 @@ disMat <- function(imgs, nb, cp=1e-3, subsample = c(1, .5),
   }
   fits <- list()
   for (j in 1:N) {
-        fits[[j]] <- surfacemodel(imgs[,,j], nb, trim.vars = TRUE, cp = cp, xval = 0,
+    fits[[j]] <- surfacemodel(imgs[,,j], nb, trim.vars = TRUE, cp = cp, xval = 0,
                               standardize = FALSE, subsample = subsample[1],
                               stationary.test = FALSE, keep.residuals = FALSE)
-        if (verbose) cat(round(j/N*100), '%-', sep='')
+    if (verbose) cat(round(j/N*100), '%-', sep='')
   }
   if (verbose) {
     cat("Model fitting completed!\n")
-    cat("  User elapsed time: ", (proc.time() - ptm)[1], "\n")
+    cat("  User elapsed time: ", (proc.time() - ptm)[3], "\n")
     cat("Computing dissimilarity matrices... ")
     ptm <- proc.time()
   }
@@ -106,7 +106,7 @@ disMat <- function(imgs, nb, cp=1e-3, subsample = c(1, .5),
 
   if (verbose) {
     cat("Dissimilarity matrix computation completed!\n")
-    cat("  User elapsed time: ", (proc.time() - ptm)[1], "\n")
+    cat("  User elapsed time: ", (proc.time() - ptm)[3], "\n")
   }
 
   if (keep.fits) save(fits, file=paste(getwd(),"/fits.Rdata",sep=""))

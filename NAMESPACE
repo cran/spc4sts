@@ -1,6 +1,7 @@
 exportPattern("^[[:alpha:]]+")
 import(rpart)
 import(stats)
+import(parallel)
 importFrom("utils", "capture.output")
 importFrom("LS2Wstat", "TOS2D")
 importFrom("gridExtra","grid.table")

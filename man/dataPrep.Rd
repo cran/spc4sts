@@ -41,7 +41,7 @@ Anh Bui
 }
 \examples{
 ## construct a neighborhood data for an unrealistically small mock image (7x9 pixels).
-mock.img <- matrix(sample(0:255,63), 7, 9)
+mock.img <- matrix(sample(0:255, 63, replace = TRUE), 7, 9)
 mock.img
 dataPrep(img = mock.img, nb = 2) # the same with nb = c(2, 2, 2)
 

@@ -10,7 +10,8 @@ Control Limit and Diagnostic Threshold Construction
 Establish control limits (for local defects and/or global changes) and diagnostic thresholds (for local defects) from the given Phase I images. \code{climit} is used for the first time. \code{climit2} can update the control limits and diagnostic thresholds given the output of \code{climit}. See Warning. To plot histograms of the Phase I monitoring statistics, use \code{plot.climit}.
 }
 \usage{
-climit(imgs, fa.rate, model, type, stat = c("ad", "bp"), w, nD = 10, verbose = FALSE)
+climit(imgs, fa.rate, model, type, stat = c("ad", "bp"), w,
+       nD = 10, no_cores = 1, verbose = FALSE)
 climit2(cl, fa.rate, nD)
 }
 \arguments{
@@ -34,6 +35,9 @@ for local defects only. The dimension of the spatial (square) moving window. Mus
 }
   \item{nD}{
 for local defects only. The parameter to construct the diagnostic threshold. It is the average number of highlighted pixels in the diagnostic image for an in-control image.
+}
+  \item{no_cores}{
+if > 1, parallely compute Phase I monitoring statistics using \code{no_cores} processors.
 }
   \item{verbose}{
 if \code{TRUE}, show the computing progress.

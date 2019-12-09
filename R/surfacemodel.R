@@ -19,7 +19,7 @@ surfacemodel <- function(img, nb, trim.vars = TRUE, cp = 1e-5,
     pvalue <- stationaryTest(img, nsamples = nsamples, verbose = verbose)$p.value
     if (verbose)  {
       cat("Completed!\n")
-      cat("  User elapsed time: ", (proc.time() - ptm)[1], "\n")
+      cat("  Elapsed time: ", (proc.time() - ptm)[3], "\n")
     }
     if (pvalue <= 1 - conf.level) {
       cat('  The given image is not stationary at confidence level:', conf.level, '\n')
@@ -54,7 +54,7 @@ surfacemodel <- function(img, nb, trim.vars = TRUE, cp = 1e-5,
   if (trim.vars) {
     if (verbose)  {
       cat("First fit completed!\n")
-      cat("  User elapsed time: ", (proc.time() - ptm2)[1], "\n")
+      cat("  Elapsed time: ", (proc.time() - ptm2)[3], "\n")
     }
     if (xval > 1)
       if (verbose)  {
@@ -95,7 +95,7 @@ surfacemodel <- function(img, nb, trim.vars = TRUE, cp = 1e-5,
     out$residuals <- r
   if (verbose)  {
     cat("Completed!\n")
-    cat("  Total user elapsed time: ", (proc.time() - ptm)[1], "\n")
+    cat("  Total elapsed time: ", (proc.time() - ptm)[3], "\n")
     if (xval > 1) cat("  Cross-validation R-squared: ", 1 - fit$cptable[cp.min.id,4], "\n")
   }
 
