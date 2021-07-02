@@ -1,9 +1,9 @@
-b750f3548c30e1c96aec1c6f8d8ecbbb *DESCRIPTION
+b34a3e6188f35106bc1ef65eabdc87be *DESCRIPTION
 bc76e2b4619bcdc33f9c58220d68f711 *NAMESPACE
 85ce92acf34a8f9bdea1e299b3a8603f *R/ad.R
 c2ab2486ae98ddbafa17e7b3e6681f4a *R/bp.R
 e6e5a318b0903f0c46ebc9cf754dadb0 *R/bp2.R
-9e5f1e8116fb9df98aaff461ee59833c *R/climit.R
+271aa33d58eb1d913beb01079abf6afd *R/climit.R
 802218828001c667825a388f948dd17e *R/climit2.R
 707aeca47c3a2965ab5cb6cf7c3020a8 *R/dataPrep.R
 b99f8fb43a0c059ea94587554c7f9036 *R/diagnoseLD.R
@@ -28,10 +28,10 @@ de2e911132bb2bea950b7c27c9f61c28 *R/showNb.R
 186a486b6a8e271f7707324914575625 *R/stationaryTest.R
 57a15be332278aca609041cc11241e29 *R/surfacemodel.R
 df780fa14c6ca724dd7c249aaa0aaf24 *R/twms.R
-2ccfa20d159c26e03117ae92e50ddc4b *inst/CITATION
+590ea711b78480d4f3e68af1220b9f48 *inst/CITATION
 042c42b1f2ecfeab52b8079d10fd35d7 *man/ad.Rd
 8cf6e31b1150a11a1e2698f283dbce05 *man/bp.Rd
-b0cace8005e0d8d6e898f59fce6e123c *man/climit.Rd
+1bdaf58c081d3dcf311e8022c6b0fd76 *man/climit.Rd
 d6a71f388b4a106068485a0dc8cae6a7 *man/climit.object.Rd
 29fefad78776ed6f7c51aa037ea659a5 *man/dataPrep.Rd
 b75c83ab6351c0326346923a7032c843 *man/diagnoseLD.Rd
@@ -48,7 +48,7 @@ c41f0e89a4ed6361ba975ede99e1299c *man/plotcc.Rd
 cce82f6ef7f3d652f66640ecabb0f93a *man/showNb.Rd
 2ccb7a0b4b2325de00a4956dbb567726 *man/sms.Rd
 e9fd1140c96039ed4f489de8d947f879 *man/spaCov.Rd
-ed0c29efea1c4fe1fb3b48bfbe0ccc3e *man/spc4sts-package.Rd
+9e3f868e6fcb7aaa3b58ffaac586449a *man/spc4sts-package.Rd
 a7d340434384f16f5fd56b510c52eb35 *man/stationaryTest.Rd
 f7798faae561b031337ebe9525dcb723 *man/surfacemodel.Rd
 7b1e9206e292490d0bb9d832b92a7115 *man/twms.Rd

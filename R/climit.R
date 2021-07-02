@@ -1,5 +1,5 @@
 climit <- function (imgs, fa.rate, model, type, stat = c("ad", "bp"),
-          w, nD = 10, no_cores = 1, verbose = FALSE)
+          w = 5, nD = 10, no_cores = 1, verbose = FALSE)
 {
   if (verbose) {
     ptm <- proc.time()
@@ -17,9 +17,7 @@ climit <- function (imgs, fa.rate, model, type, stat = c("ad", "bp"),
     stop("Missing type of monitoring statistic.\n           It must be 1 (for local defect), 2 (for global change), or 1:2 (for both).")
   N <- dim(imgs)[3]
   if (1 %in% type) {
-    if (missing(w))
-      stop("Missing argument w. It must be an odd number >= 3.")
-    else if (w < 3 || w%%2 < 1)
+    if (w < 3 || w%%2 < 1)
       stop("w must be an odd number >= 3.")
     stat <- match.arg(stat)
     M <- dim(imgs)[1] * dim(imgs)[2]

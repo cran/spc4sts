@@ -1,10 +1,11 @@
-year <- sub("-.*", "", meta$Date)
-note <- "submitted paper"
-
 bibentry(bibtype = "Manual",
-         title = "spc4sts: Statistical Process Control for Stochastic Textured Surfaces in R ",
+         title = "spc4sts: Statistical Process Control for Stochastic Textured Surfaces in R",
          author = c(person("Anh", "Bui", "Tuan"),
                     person("Daniel", "Apley", "W.")),
-         year = 2019,
-         note = note,
-         url = "https://CRAN.R-project.org/package=spc4sts")
+         year = 2021,
+         journal = "Journal of Quality Technology",
+         volume = 53,
+         issue = 3,
+         pages = 219-242,
+         doi = "10.1080/00224065.2019.1707730"
+         )
