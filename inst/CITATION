@@ -1,11 +1,19 @@
-bibentry(bibtype = "Manual",
-         title = "spc4sts: Statistical Process Control for Stochastic Textured Surfaces in R",
-         author = c(person("Anh", "Bui", "Tuan"),
-                    person("Daniel", "Apley", "W.")),
-         year = 2021,
-         journal = "Journal of Quality Technology",
-         volume = 53,
-         issue = 3,
-         pages = 219-242,
-         doi = "10.1080/00224065.2019.1707730"
-         )
+citHeader("To cite spc4sts in publications use:")
+
+citEntry(entry = "Article",
+  title        = "{spc4sts}: Statistical Process Control for Stochastic Textured Surfaces in R",
+  author       = personList(as.person("Anh Tuan Bui"),
+                   as.person("Daniel W. Apley")),
+  journal      = "Journal of Quality Technology",
+  year         = "2021",
+  volume       = "53",
+  issue        = "3",
+  pages        = "219--242",
+  doi          = "10.1080/00224065.2019.1707730",
+
+  textVersion  =
+  paste("Anh Tuan Bui, Daniel W. Apley (2021).",
+        "spc4sts: Statistical Process Control for Stochastic Textured Surfaces in R.",
+        "Journal of Quality Technology, 53(3), 219-242.",
+        "DOI 10.1080/00224065.2019.1707730.")
+)
