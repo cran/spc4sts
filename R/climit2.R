@@ -1,6 +1,6 @@
 climit2 <- function(cl, fa.rate, nD) {
 
-  if (class(cl) != "climit")
+  if (!inherits(cl, "climit"))
     stop("cl must be an object returned by the climit or climit2 functions!")
 
   if (!missing(fa.rate)) {

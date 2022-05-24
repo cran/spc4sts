@@ -43,7 +43,7 @@ disMat <- function(imgs, nb, cp=1e-3, subsample = c(1, .5),
   for (j in 1:N) {
     fits[[j]] <- surfacemodel(imgs[,,j], nb, trim.vars = TRUE, cp = cp, xval = 0,
                               standardize = FALSE, subsample = subsample[1],
-                              stationary.test = FALSE, keep.residuals = FALSE)
+                              keep.residuals = FALSE)
     if (verbose) cat(round(j/N*100), '%-', sep='')
   }
   if (verbose) {

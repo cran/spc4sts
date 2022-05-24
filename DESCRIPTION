@@ -1,10 +1,10 @@
 Package: spc4sts
 Type: Package
 Title: Statistical Process Control for Stochastic Textured Surfaces
-Version: 0.5.5
+Version: 0.6.3
 Author: Anh Tuan Bui [aut, cre] and Daniel W. Apley [ths]
-Maintainer: Anh Bui <atbui@u.northwestern.edu>
-Depends: LS2Wstat, rpart, gridExtra, parallel
+Maintainer: Anh Tuan Bui <atbui@u.northwestern.edu>
+Imports: rpart, gridExtra, parallel
 Description: Provides statistical process control tools for stochastic 
     textured surfaces. The current version supports the following tools:
     (1) generic modeling of stochastic textured surfaces.
@@ -21,6 +21,6 @@ License: GPL-2
 Encoding: UTF-8
 RoxygenNote: 6.0.1
 NeedsCompilation: no
-Packaged: 2022-02-12 07:47:52 UTC; buiat2
+Packaged: 2022-05-21 15:53:09 UTC; buiat2
 Repository: CRAN
-Date/Publication: 2022-02-12 10:10:02 UTC
+Date/Publication: 2022-05-24 09:50:02 UTC

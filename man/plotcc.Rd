@@ -20,6 +20,7 @@ the control limit of the control chart.
 (some of) the Phase I monitoring statistics.
 }
 }
+\value{No return value, called for plotting control charts.}
 \author{
 Anh Bui
 }

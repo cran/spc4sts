@@ -11,8 +11,7 @@ Provides a statistical represenation for a given stochastic textured surface ima
 \usage{
 surfacemodel(img, nb, trim.vars = TRUE, cp = 1e-5,
              xval = 5, standardize = TRUE, subsample = 1,
-             verbose = FALSE, keep.residuals = FALSE,
-             stationary.test = FALSE, conf.level = .95, nsamples = 20)
+             verbose = FALSE, keep.residuals = FALSE)
 }
 \arguments{
   \item{img}{
@@ -42,13 +41,7 @@ if \code{TRUE}, output some model fitting information.
 \item{keep.residuals}{
 if \code{TRUE}, keep residuals of the fitted model in the output.
 }
-\item{stationary.test}{
-if \code{TRUE}, perform a stationary test for the given image \code{img}.
-}
-\item{conf.level}{
-the confidence level of the stationary test. If the \emph{p}-value of the test is not greater than \code{1 - conf.level}, the function will stop and return the \emph{p}-value.
-}
-\item{nsamples}{the number of bootstrap samples in the stationary test.}
+
 }
 \value{
 A \code{surfacemodel} object containing the following components:
@@ -61,8 +54,6 @@ A \code{surfacemodel} object containing the following components:
 \item{R2cv }{the cross-validated R-squared of \code{fit}.}
 \item{complexity }{the complexity value of the returned \code{fit}.}
 \item{vars }{the variables used in the formula when fitting the model.}
-\item{p.value }{the p-value of the stationary test.}
-\item{nsamples }{the number of bootstrap samples in the stationary test.}
 \item{residuals }{the residuals of the fitted model.}
 }
 \references{
@@ -77,8 +68,6 @@ The best value for the neighborhood size \code{nb} argument can be chosen by com
 After finalizing the choice of \code{nb}, it is better to set \code{trim.vars = TRUE} to further remove some unused variables within that neighborhood.
 
 The raster scan order for constructing the neiborhood data in \code{dataPrep()} is left-to-right then top-to-bottom (see Bui and Apley 208a). Rotating the image by every 90 degrees could be used to quicly change to some other raster scan orders. Again, the cross-validated R-squared \code{R2cv} output can be used to select the best raster scan order. See the below examples.
-
-The stationary test is performed by using the \code{\link{TOS2D}} function in the \code{LS2Wstat} package.
 
 \code{plot.surfacemodel()} is a generic function for \code{surfacemodel()} that produces two plots: a plot of the cross-validation R-squared against the complexity parameter and a histogram of the residuals (along with a normal density curve) of the fitted model.
 }

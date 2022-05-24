@@ -10,7 +10,7 @@ showNb <- function(model, what = c("neighborhood", "predictors", "importance"), 
         w2 <- model[3]
       } else stop("Wrong input for the model argument!")
     }
-  } else if (class(model) == "surfacemodel") {
+  } else if (inherits(model, "surfacemodel")) {
     h <- model$nb[1]
     w1 <- model$nb[2]
     w2 <- model$nb[3]
@@ -41,6 +41,8 @@ showNb <- function(model, what = c("neighborhood", "predictors", "importance"), 
   }
 
   if (plot.it) {
+    oldpar <- par(no.readonly = TRUE)
+    on.exit(par(oldpar))
     dev.new(width = 6.5, height = 2)
     par(mar = c(.5, 0, .5, 0))
     grid.table(fullNb)

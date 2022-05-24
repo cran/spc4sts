@@ -1,7 +1,9 @@
 monitoringStat <- function(img, model, type, stat = c("ad", "bp"), w, cl = NULL, verbose = FALSE) {
 
-  if (!is.matrix(img)) stop("img must be a matrix.")
-  if (class(model) != "surfacemodel") stop("Wrong input for the model argument! Needs a surfacemodel object.")
+  if (!is.matrix(img))
+    stop("img must be a matrix.")
+  if (!inherits(model, "surfacemodel"))
+    stop("Wrong input for the model argument! Needs a surfacemodel object.")
 
   if (is.null(cl)) {
     if (missing(type) | length(type) > 2 | !all(type %in% 1:2))
@@ -20,7 +22,7 @@ monitoringStat <- function(img, model, type, stat = c("ad", "bp"), w, cl = NULL,
       control$cp <- model$complexity
     }
   } else {
-    if (class(cl) != "climit")
+    if (!inherits(cl, "climit"))
       stop("cl must be an object returned by the climit or climit2 functions!")
     type <- cl$type
 

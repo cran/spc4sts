@@ -11,7 +11,7 @@ climit <- function (imgs, fa.rate, model, type, stat = c("ad", "bp"),
     stop("img must be a 3-dimensional array.")
   if (missing(type))
     stop("A false alarm rate(s) must be provided.")
-  if (class(model) != "surfacemodel")
+  if (!inherits(model, "surfacemodel"))
     stop("Wrong input for the model argument! Needs a surfacemodel object.")
   if (missing(type) | length(type) > 2 | !all(type %in% 1:2))
     stop("Missing type of monitoring statistic.\n           It must be 1 (for local defect), 2 (for global change), or 1:2 (for both).")

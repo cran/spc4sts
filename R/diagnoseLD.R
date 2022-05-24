@@ -1,6 +1,6 @@
 diagnoseLD <- function(ms, dth, plot.it = TRUE) {
 
-  if (class(ms) != "monitoringStat")
+  if (!inherits(ms, "monitoringStat"))
     stop("ms must be an object returned by the monitoringStat function!")
   if (is.null(ms$sms))
     stop("ms does not contain information for diagnosing local defects. Need to set type = 1 when running monitoringStat().")

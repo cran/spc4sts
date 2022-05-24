@@ -1,7 +1,6 @@
 surfacemodel <- function(img, nb, trim.vars = TRUE, cp = 1e-5,
                          xval = 5, standardize = TRUE, subsample = 1,
-                         verbose = FALSE, keep.residuals = FALSE,
-                         stationary.test = FALSE, conf.level = .95, nsamples = 20) {
+                         verbose = FALSE, keep.residuals = FALSE) {
 
   if (!is.matrix(img)) stop("img must be a matrix!")
 
@@ -13,23 +12,6 @@ surfacemodel <- function(img, nb, trim.vars = TRUE, cp = 1e-5,
     if (any(nb < 1)) stop("nb must be positive!")
   }
   ptm <- proc.time()
-  if (stationary.test) {
-    if (verbose)
-      cat("Testing for stationary assumption... ")
-    pvalue <- stationaryTest(img, nsamples = nsamples, verbose = verbose)$p.value
-    if (verbose)  {
-      cat("Completed!\n")
-      cat("  Elapsed time: ", (proc.time() - ptm)[3], "\n")
-    }
-    if (pvalue <= 1 - conf.level) {
-      cat('  The given image is not stationary at confidence level:', conf.level, '\n')
-      cat('  The procedure is stopped. Return the p-value of the stationary test:', pvalue, '\n')
-      return(pvalue)
-    } else if (verbose) {
-      cat('  The given image is stationary at confidence level:', conf.level, '\n')
-      cat('  The p-value is', pvalue, '\n')
-    }
-  }
 
   if (verbose)  {
     cat("Building the model... ")
@@ -87,10 +69,6 @@ surfacemodel <- function(img, nb, trim.vars = TRUE, cp = 1e-5,
     out$complexity <- cp
   if (trim.vars)
     out$vars <- vars
-  if (stationary.test) {
-    out$p.value <- pvalue
-    out$nsamples <- nsamples
-  }
   if (keep.residuals)
     out$residuals <- r
   if (verbose)  {

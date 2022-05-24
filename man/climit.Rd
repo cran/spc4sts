@@ -91,8 +91,9 @@ ms4 <- monitoringStat(img = img4, model = model, cl = cl2) # computing monitorin
 
 ## diagnose for local defect regions in img3
 bimg <- diagnoseLD(ms3, dth = 9, plot.it = FALSE) # use climit() to find dth
-par(mfcol = c(1, 2))
-par(mar = c(2, 0.5, 1, 0.5))
+
+#par(mfcol = c(1, 2))
+#par(mar = c(2, 0.5, 1, 0.5))
 image(xaxt = 'n', yaxt = 'n', as.matrix(t(apply(img3 , 2, rev))),
       col = gray((0:32)/32), xlab = '', ylab = '', asp = 1, bty = 'n')
 image(xaxt = 'n', yaxt = 'n', as.matrix(t(apply(bimg , 2, rev))),

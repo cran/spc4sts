@@ -10,7 +10,7 @@ sms <- function (img, stat = c("ad", "bp"), w, Fr, gamma = (w + 1)/2)
   w2 <- w - 1
   ms <- matrix(0, d1 - w2, d2 - w2)
   if (stat == "ad") {
-    if (class(Fr) != "exptailecdf")
+    if (!inherits(Fr, "exptailecdf"))
       stop("Fr must be an object returned by the exptailecdf function!")
     P <- pexptailecdf(Fr, img)
     for (i in 1:(d1 - w2)) {
